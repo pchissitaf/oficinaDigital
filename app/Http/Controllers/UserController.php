@@ -12,17 +12,25 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {  
-       // $this->authorize('users.index');
-     
-     
+       /*$this->authorize('users.index');
         $users = User::paginate(15);
-
         $user = User::find(1);
-     
+        return view('users.index', compact('users'));*/
 
-        return view('users.index', compact('users'));
+        $users = User::when($request->has('name'), function ($whenQuery) use ($request) {
+            $whenQuery->where('name', 'like', '%' . $request->name . '%');
+        })
+            ->orderBy('created_at')
+            ->paginate(10)
+            ->withQueryString();
+        // Carregar a VIEW
+        return view('users.index', [
+            'users' => $users,
+            'name' => $request->name,
+        ]);
+
     }
 
     /**

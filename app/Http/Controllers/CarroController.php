@@ -32,7 +32,6 @@ class CarroController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
-
         // Carregar a VIEW
         return view('carros.index', [
             'carros' => $carros,
@@ -79,7 +78,7 @@ class CarroController extends Controller
                 'cor' => $request->cor, 
                 'marca' => $request->marca, 
                 'tipo' => $request->tipo,
-                'estado_carro_id' => $request->estado_carro_id, 'tipo_de_avaria' => $request->tipo_de_avaria,  'codigo_validacao' => $request->codigo_validacao,
+                'estado_carro_id' => $request->estado_carro_id, 'tipo_de_avaria' => $request->tipo_de_avaria,  'codigo_validacao' =>Str::random(5),
                 'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
                 'ano' => $request->ano,
             ]);
@@ -119,10 +118,14 @@ class CarroController extends Controller
 
             // Editar as informações do registro no banco de dados
             $carro->update([
-                'nome' => $request->nome,
+                'modelo' => $request->modelo,
+                'cor' => $request->cor,
+                'marca' => $request->marca,
+                'tipo' => $request->tipo,
+                'estado_carro_id' => $request->estado_carro_id,
+                'tipo_de_avaria' => $request->tipo_de_avaria,
                 'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
                 'ano' => $request->ano,
-                'situacao_carro_id' => $request->situacao_carro_id,
             ]);
 
             // Salvar log
@@ -184,7 +187,7 @@ class CarroController extends Controller
     }
 
     // Alterar Estado do carro
-    public function changeSituation(Carro $carro)
+    public function changeEstado(Carro $carro)
     {
 
         try {

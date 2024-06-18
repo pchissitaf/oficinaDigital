@@ -331,6 +331,45 @@ return [
             'can'  =>  'users.create'
         ],
         [
+            'text'    => 'Carros',
+            'icon'    => 'fas fa-fw fa-car',
+            'submenu' => [
+                [
+                    'text' => 'Listar Carros',
+                   // 'route'  => '#',
+                    'icon'    => 'fas fa-fw fa-list',
+                ],
+                [
+                    'text'    => 'level_one',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'level_two',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text'    => 'level_two',
+                            'url'     => '#',
+                            'submenu' => [
+                                [
+                                    'text' => 'level_three',
+                                    'url'  => '#',
+                                ],
+                                [
+                                    'text' => 'level_three',
+                                    'url'  => '#',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'level_one',
+                    'url'  => '#',
+                ],
+            ],
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

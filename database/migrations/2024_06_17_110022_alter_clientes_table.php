@@ -12,14 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         //
-        /*Schema::table('clientes', function (Blueprint $table) {
-            $table->unsignedBigInteger('carro_id')->after('telefone');
-            
-            $table->foreignId('carro_id')->references('id')->on('carros');
-        });*/
 
         Schema::table('clientes', function (Blueprint $table) {
-            $table->foreignId('carro_id')->after('telefone')->constrained('carros');
+            $table->foreignId('user_id')->default(1)->constrained('users');
         });
     }
 
@@ -30,7 +25,8 @@ return new class extends Migration
     {
         //
         Schema::create('clientes', function (Blueprint $table) {
-            $table->dropColumn('carro_id');
+            
+            $table->dropColumn('user_id');
         });
     }
 };

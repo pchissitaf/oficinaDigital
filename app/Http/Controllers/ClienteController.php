@@ -2,10 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+    // Listar as clientes
+    public function index(Request $request)
+    {
+
+        // Recuperar os registros do banco dados
+        $clientes = Cliente::when($request->has('nome'), function ($whenQuery) use ($request) {
+            $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
+        })
+            ->with('user')
+            ->orderByDesc('created_at')
+            ->paginate(10)
+            ->withQueryString();
+        $users = User::all();
+        // Carregar a VIEW
+        return view('clientes.index', [
+            'clientes' => $clientes,
+            'nome' => $request->nome,
+        ]);
+    }
     /**
      * Show the form for creating the resource.
      */

@@ -1,10 +1,22 @@
-import 'bootstrap';
-
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
+/* Importar o framework bootstrap */
+import 'bootstrap';
+
+// Importar select2
+//import select2 from 'select2';
+//select2();
+
+// Importar o axios
+import axios from 'axios';
+window.axios = axios;
+
+// Importar o SweetAlert2
+import Swal from 'sweetalert2';
+window.Swal = Swal;
 
 import axios from 'axios';
 window.axios = axios;

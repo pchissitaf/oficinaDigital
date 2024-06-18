@@ -26,8 +26,5 @@ class UserSeeder extends Seeder
 
         ]);
 
-        $roles = Role::all();
-
-        $user->roles()->saveMany($roles);
     }
 }

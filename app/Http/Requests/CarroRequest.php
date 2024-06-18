@@ -23,6 +23,10 @@ class CarroRequest extends FormRequest
     {
         return [
             'modelo' => 'required',
+            'cor' => 'required',
+            'marca' => 'required',
+            'tipo' => 'required',
+            'estado_carro_id' => 'required',
             'valor' => 'required|max:10',
             'ano' => 'required',
             'estado_carro_id' => 'required',
@@ -33,6 +37,10 @@ class CarroRequest extends FormRequest
     {
         return[
             'modelo.required' => 'Campo modelo é obrigatório!',
+            'cor.required' => 'Campo cor é obrigatório!',
+            'marca.required' => 'Campo marca é obrigatório!',
+            'tipo.required' => 'Campo tipo é obrigatório!',
+            'estado_carro_id.required' => 'Campo estado do carro é obrigatório!',
             'valor.required' => 'Campo valor é obrigatório!',
             'valor.max' => 'O preço só pode ter no máximo 8 números!',
             'ano.required' => 'Campo ano é obrigatório!',

@@ -7,18 +7,18 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('users.index') }}">
+            <form action="{{ route('cliente.index') }}">
                 <div class="row">
 
                     <div class="col-md-3 col-sm-12">
-                        <label class="form-label" for="name">Nome</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ $name }}"
-                            placeholder="name do user" />
+                        <label class="form-label" for="nome">nome</label>
+                        <input type="text" name="nome" id="nome" class="form-control" value="{{ $nome }}"
+                            placeholder="nome do cliente" />
                     </div>
 
                     <div class="col-md-3 col-sm-12 mt-3 pt-4">
                         <button type="submit" class="btn btn-info btn-sm">Pesquisar</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-warning btn-sm">Limpar</a>
+                        <a href="{{ route('cliente.index') }}" class="btn btn-warning btn-sm">Limpar</a>
                     </div>
 
                 </div>
@@ -29,13 +29,13 @@
 
     <div class="card mt-4 mb-4 border-light shadow">
         <div class="card-header d-flex justify-content-between">
-            <span>Listar users</span>
+            <span>Listar clientes</span>
             <span>
-                <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
-                {{-- <a href="{{ route('user.gerar-pdf') }}" class="btn btn-warning btn-sm">Gerar PDF</a> --}}
+                <a href="{{ route('cliente.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
+                {{-- <a href="{{ route('cliente.gerar-pdf') }}" class="btn btn-warning btn-sm">Gerar PDF</a> --}}
                 {{-- {{ dd(request()->getQueryString()) }} --}}
 
-                <a href="{{ url('gerar-pdf-user?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
+                <a href="{{ url('gerar-pdf-cliente?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
                     PDF</a>
 
             </span>
@@ -51,44 +51,44 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Criado</th>
-                        <th scope="col">Editado</th>
+                        <th scope="col">endereco</th>
+                        <th scope="col">telefone</th>
+                        <th scope="col">ID de Usuario</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($users as $user)
+                    @forelse ($clientes as $cliente)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($user->updated_at)->format('d/m/Y') }}</td>
+                            <td>{{ $cliente->id }}</td>
+                            <td>{{ $cliente->nome }}</td>
+                            <td>{{ $cliente->endereco }}</td>
+                            <td>{{ $cliente->telefone }}</td>
+                            <td>{{ $cliente->user->email }}</td>
                                                         
                             <td class="d-md-flex justify-content-center">
-                                <a href="{{ route('users.show', ['user' => $user->id]) }}"
+                                <a href="{{ route('cliente.show', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
 
-                                <a href="{{ route('users.edit', ['user' => $user->id]) }}"
+                                <a href="{{ route('cliente.edit', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
 
-                                <form id="formExcluir{{ $user->id }}"
-                                    action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                                <form id="formExcluir{{ $cliente->id }}"
+                                    action="{{ route('cliente.destroy', ['cliente' => $cliente->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="confirmarExclusao(event, {{ $user->id }})">Apagar</button>
+                                        onclick="confirmarExclusao(event, {{ $cliente->id }})">Apagar</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
-                        <span style="color: #f00;">Nenhum user encontrado!</span>
+                        <span style="color: #f00;">Nenhum cliente encontrado!</span>
                     @endforelse
                 </tbody>
             </table>
 
-            {{ $users->onEachSide(0)->links() }}
+            {{ $clientes->onEachSide(0)->links() }}
         </div>
     </div>
 @endsection

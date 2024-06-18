@@ -15,9 +15,9 @@ class Carro extends Model
     protected $table = 'carros';
 
     // Indicar quais colunas podem ser cadastrada
-    protected $fillable = ['modelo', 'cor', 'marca', 'tipo', 'estado_carro_id', 'tipo_de_avaria','codigo_validacao','valor','ano',];
+    protected $fillable = ['modelo', 'cor', 'marca', 'tipo', 'estado_carro_id', 'tipo_de_avaria','codigo_validacao', 'cliente_id','valor','ano',];
 
-    public function situacaoConta()
+    public function estadoCarro()
     {
         return $this->belongsTo(EstadoCarro::class);
     }

@@ -50,14 +50,12 @@
                 <a href="{{ url('gerar-pdf-carro?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
                     PDF</a>
 
-                    <a href="{{ url('gerar-csv-carro?' . request()->getQueryString()) }}" class="btn btn-success btn-sm">Gerar
-                        Excel</a>
-
             </span>
         </div>
 
         {{-- Verificar se existe a sessão success e imprimir o valor --}}
         <x-alert />
+        {{ session('success') }}
 
         <div class="card-body">
             <table class="table">
@@ -72,7 +70,7 @@
                         <th scope="col">T de Avaria</th>
                         <th scope="col">Validacao</th>
                         <th scope="col">Valor</th>
-                        <th scope="col">Marca</th>
+                        <th scope="col">Ano</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -85,14 +83,14 @@
                             <td>{{ $carro->marca }}</td>
                             <td>{{ $carro->tipo }}</td>
                             <td>
-                                <a href="{{ route('carro.change-situation', [ 'carro' => $carro->id])}}">
-                                    {!! '<span class="badge text-bg-' . $carro->estadocarro->cor . '">' . $carro->estadocarro->modelo . '</span>' !!}
+                                <a href="{{ route('carro.change-estado', [ 'carro' => $carro->id])}}">
+                                    {!! '<span class="badge text-bg-' . $carro->estadoCarro->cor . '">' . $carro->estadoCarro->nome . '</span>' !!}
                                 </a>
                             </td>
                             <td>{{ $carro->tipo_de_avaria }}</td>
                             <td>{{ $carro->codigo_validacao }}</td>
-                            <td>{{ 'R$ ' . number_format($carro->valor, 2, ',', '.') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($carro->ano)->tz('America/Sao_Paulo')->format('d/m/Y') }}
+                            <td>{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}
                             </td>
 
                             

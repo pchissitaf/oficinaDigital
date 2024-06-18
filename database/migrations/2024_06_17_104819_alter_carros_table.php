@@ -12,13 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         //
-       /* Schema::table('carros', function (Blueprint $table) {
-            $table->unsignedBigInteger('estado_carro_id')->default(2)->after('tipo');
-            
-            $table->foreignId('estado_carro_id')->references('id')->on('estado_carros');
-        });*/
+       
         Schema::table('carros', function (Blueprint $table) {
             $table->foreignId('estado_carro_id')->default(2)->after('tipo')->constrained('estado_carros');
+            $table->foreignId('cliente_id')->default(2)->after('codigo_validacao')->constrained('clientes');
         });
     }
 
@@ -30,6 +27,7 @@ return new class extends Migration
         //
         Schema::create('carros', function (Blueprint $table) {
             $table->dropColumn('estado_carro_id');
+            $table->dropColumn('cliente_id');
         });
     }
 };
