@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
 @section('title', 'Novo Usuário')
 
@@ -14,9 +14,15 @@
 
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Formulario</h3>
+                <h4 class="card-title">Cadastrar Usuario</h4>
             </div>
-
+            @if ($errors->any())
+                <span style="color:#ff0000;">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }} <br>
+                    @endforeach
+                </span>
+            @endif
 
             <form action="{{route('users.store')}}" method="post" >
                 @csrf 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarroRequest;
 use App\Models\Carro;
+use App\Models\Cliente;
 use App\Models\EstadoCarro;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -28,7 +29,7 @@ class CarroController extends Controller
             ->when($request->filled('data_fim'), function ($whenQuery) use ($request) {
                 $whenQuery->where('ano', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
             })
-            ->with('estadoCarro')
+            ->with('estadoCarro', 'cliente')
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
@@ -56,10 +57,11 @@ class CarroController extends Controller
     {
         // Recuperar do banco de dados os estados
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
+        $clientes = Cliente::orderBy('nome', 'asc')->get();
 
         // Carregar a VIEW
         return view('carros.create', [
-            'estadoCarros' => $estadoCarros,
+            'estadoCarros' => $estadoCarros, 'clientes' => $clientes,
         ]);
     }
 
@@ -78,7 +80,8 @@ class CarroController extends Controller
                 'cor' => $request->cor, 
                 'marca' => $request->marca, 
                 'tipo' => $request->tipo,
-                'estado_carro_id' => $request->estado_carro_id, 'tipo_de_avaria' => $request->tipo_de_avaria,  'codigo_validacao' =>Str::random(5),
+                'estado_carro_id' => $request->estado_carro_id, 'tipo_de_avaria' => $request->tipo_de_avaria,
+                'cliente_id' => $request->cliente_id,  'codigo_validacao' =>Str::random(5),
                 'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
                 'ano' => $request->ano,
             ]);
@@ -100,11 +103,12 @@ class CarroController extends Controller
     {
         // Recuperar do banco de dados as situações
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
+        $clientes = Cliente::orderBy('nome', 'asc')->get();
 
         // Carregar a VIEW
         return view('carros.edit', [
             'carro' => $carro,
-            'estadoCarros' => $estadoCarros,
+            'estadoCarros' => $estadoCarros, 'clientes' =>$clientes,
         ]);
     }
 
@@ -124,6 +128,7 @@ class CarroController extends Controller
                 'tipo' => $request->tipo,
                 'estado_carro_id' => $request->estado_carro_id,
                 'tipo_de_avaria' => $request->tipo_de_avaria,
+                'cliente_id' => $request->cliente_id,
                 'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
                 'ano' => $request->ano,
             ]);

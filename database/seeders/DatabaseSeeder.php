@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             EstadoCarroSeeder::class,
             ClienteSeeder::class,
-            CarroSeeder::class,
+            CarroSeeder::class,ServicoSeeder::class,
         ]);
         \App\Models\User::factory(19)->create();
 

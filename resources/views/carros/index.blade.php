@@ -68,6 +68,7 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Estado</th>
                         <th scope="col">T de Avaria</th>
+                        <th scope="col">Proprietario</th>
                         <th scope="col">Validacao</th>
                         <th scope="col">Valor</th>
                         <th scope="col">Ano</th>
@@ -88,6 +89,7 @@
                                 </a>
                             </td>
                             <td>{{ $carro->tipo_de_avaria }}</td>
+                            <td>{{ $carro->cliente->nome }}</td>
                             <td>{{ $carro->codigo_validacao }}</td>
                             <td>{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</td>
                             <td>{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}

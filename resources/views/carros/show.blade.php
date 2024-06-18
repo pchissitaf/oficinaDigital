@@ -11,13 +11,13 @@
         </div>
 
         {{-- Verificar se existe a sessão success e imprimir o valor --}}
-        {{--<x-alert />--}}
-        {{ session('success') }}
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                Swal.fire('Pronto!', "{{ session('success') }}", 'success');
-            })
-        </script>
+        <x-alert />
+
+        @if (session('success'))
+            <div style="#ff000" class="alert alert-success m-3" role=""alert>
+                {{session('success')}}
+            </div>
+        @endif
 
         <div class="card-body">
 
@@ -46,6 +46,8 @@
                 </dd>
                 <dt class="col-sm-3">tipo de avaria</dt>
                 <dd class="col-sm-9">{{ $carro->tipo_de_avaria }}</dd>
+                <dt class="col-sm-3">Proprietario</dt>
+                <dd class="col-sm-9">{{ $carro->cliente->nome }}</dd>
                 <dt class="col-sm-3">Valor</dt>
                 <dd class="col-sm-9">{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</dd>
 

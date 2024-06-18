@@ -7,7 +7,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('cliente.index') }}">
+            <form action="{{ route('clientes.index') }}">
                 <div class="row">
 
                     <div class="col-md-3 col-sm-12">
@@ -18,7 +18,7 @@
 
                     <div class="col-md-3 col-sm-12 mt-3 pt-4">
                         <button type="submit" class="btn btn-info btn-sm">Pesquisar</button>
-                        <a href="{{ route('cliente.index') }}" class="btn btn-warning btn-sm">Limpar</a>
+                        <a href="{{ route('clientes.index') }}" class="btn btn-warning btn-sm">Limpar</a>
                     </div>
 
                 </div>
@@ -31,9 +31,7 @@
         <div class="card-header d-flex justify-content-between">
             <span>Listar clientes</span>
             <span>
-                <a href="{{ route('cliente.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
-                {{-- <a href="{{ route('cliente.gerar-pdf') }}" class="btn btn-warning btn-sm">Gerar PDF</a> --}}
-                {{-- {{ dd(request()->getQueryString()) }} --}}
+                <a href="{{ route('clientes.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
 
                 <a href="{{ url('gerar-pdf-cliente?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
                     PDF</a>
@@ -67,14 +65,14 @@
                             <td>{{ $cliente->user->email }}</td>
                                                         
                             <td class="d-md-flex justify-content-center">
-                                <a href="{{ route('cliente.show', ['cliente' => $cliente->id]) }}"
+                                <a href="{{ route('clientes.show', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
 
-                                <a href="{{ route('cliente.edit', ['cliente' => $cliente->id]) }}"
+                                <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
 
                                 <form id="formExcluir{{ $cliente->id }}"
-                                    action="{{ route('cliente.destroy', ['cliente' => $cliente->id]) }}" method="POST">
+                                    action="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"

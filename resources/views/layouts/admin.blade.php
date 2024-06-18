@@ -26,8 +26,9 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{{ route('carro.index') }}" class="nav-link px-2 text-white">Home</a></li>
                     <li><a href="{{ route('carro.index') }}" class="nav-link px-2 text-white">Carros</a></li>
-                    <li><a href="{{ route('cliente.index') }}" class="nav-link px-2 text-white">Clientes</a></li>
+                    <li><a href="{{ route('clientes.index') }}" class="nav-link px-2 text-white">Clientes</a></li>
                     <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">Usuarios</a></li>
+                    <li><a href="{{ route('servicos.index') }}" class="nav-link px-2 text-white">Servicos</a></li>
                 </ul>
 
                 <div class="text-end">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarroController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::get('/', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('users', UserController::class);
+Route::resource('servicos', ServicoController::class);
+Route::resource('clientes', ClienteController::class);
 Auth::routes();
 
 // CONTAS
@@ -33,17 +36,7 @@ Route::get('/edit-carro/{carro}', [CarroController::class, 'edit'])->name('carro
 Route::put('/update-carro/{carro}', [CarroController::class, 'update'])->name('carro.update');
 Route::delete('/destroy-carro/{carro}', [CarroController::class, 'destroy'])->name('carro.destroy');
 Route::get('/change-estado-carro/{carro}', [CarroController::class, 'changeEstado'])->name('carro.change-estado');
+Route::get('/change-cliente/{cliente}', [CarroController::class, 'changeCliente'])->name('carro.change-cliente');
 
 Route::get('/gerar-pdf-carro', [CarroController::class, 'gerarPdf'])->name('carro.gerar-pdf');
 
-// Clientes
-Route::get('/index-cliente', [ClienteController::class, 'index'])->name('cliente.index');
-Route::get('/create-cliente', [ClienteController::class, 'create'])->name('cliente.create');
-Route::post('/store-cliente', [ClienteController::class, 'store'])->name('cliente.store');
-Route::get('/show-cliente/{cliente}', [ClienteController::class, 'show'])->name('cliente.show');
-Route::get('/edit-cliente/{cliente}', [ClienteController::class, 'edit'])->name('cliente.edit');
-Route::put('/update-cliente/{cliente}', [ClienteController::class, 'update'])->name('cliente.update');
-Route::delete('/destroy-cliente/{cliente}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
-Route::get('/change-estado-cliente/{cliente}', [ClienteController::class, 'changeEstado'])->name('cliente.change-estado');
-
-Route::get('/gerar-pdf-cliente', [ClienteController::class, 'gerarPdf'])->name('cliente.gerar-pdf');

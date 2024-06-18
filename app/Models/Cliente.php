@@ -16,7 +16,7 @@ class Cliente extends Model
 
     public function carro()
     {
-        return $this->belongsTo(Carro::class);
+        return $this->hasMany(Carro::class);
     }
 
     

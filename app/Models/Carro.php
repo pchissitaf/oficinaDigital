@@ -24,7 +24,7 @@ class Carro extends Model
 
     public function cliente()
     {
-        return $this->hasMany(Cliente::class);
+        return $this->belongsTo(Cliente::class);
     }
 
 }

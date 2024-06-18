@@ -69,6 +69,21 @@
                 </div>
 
                 <div class="col-md-4 col-sm-12">
+                    <label for="cliente_id" class="form-label">Proprietario</label>
+                    <select name="cliente_id" id="cliente_id" class="form-select">
+                        <option value="">Selecione</option>
+                        @forelse ($clientes as $cliente)
+                            <option value="{{ $cliente->id }}"
+                                {{ old('cliente_id' ) == $cliente->id ? 'selected' : '' }}>
+                                {{ $cliente->nome }}</option>
+                        @empty
+                            <option value="">Nenhum Proprietario</option>
+                        @endforelse
+                    </select>
+                </div>
+
+
+                <div class="col-md-4 col-sm-12">
                     <label for="valor" class="form-label">Valor</label>
                     <input type="text" name="valor" class="form-control" id="valor" placeholder="Valor da carro"
                         value="{{ old('valor') }}">

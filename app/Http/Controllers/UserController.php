@@ -49,16 +49,9 @@ class UserController extends Controller
     {
         try {
             $dados = $request->all();
-
-             
-
             User::create( $dados);
             return redirect()->back();
-
-
-
-
-
+            
         } catch (\Throwable $th) {
 
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';

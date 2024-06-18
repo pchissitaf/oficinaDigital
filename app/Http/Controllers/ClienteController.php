@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,6 @@ class ClienteController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
-        $users = User::all();
         // Carregar a VIEW
         return view('clientes.index', [
             'clientes' => $clientes,
@@ -30,48 +30,97 @@ class ClienteController extends Controller
     /**
      * Show the form for creating the resource.
      */
-    public function create(): never
+    public function create()
     {
-        abort(404);
+        // Recuperar do banco de dados os usuarios
+        $users = User::orderBy('email', 'asc')->get();
+
+        // Carregar a VIEW
+        return view('clientes.create', [
+            'users' => $users,
+        ]);
     }
 
     /**
      * Store the newly created resource in storage.
      */
-    public function store(Request $request): never
+    // Cadastrar no banco de dados novo carro
+    public function store(ClienteRequest $request)
     {
-        abort(404);
+
+        // Validar o formulário
+        $request->validated();
+
+        
+
+            // Cadastrar no banco de dados na tabela carros os valores de todos os campos
+            $cliente = Cliente::create([
+                'nome' => $request->nome, 
+                'endereco' => $request->endereco, 
+                'telefone' => $request->telefone, 
+                'user_id' => $request->user_id,
+            ]);
+            
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('clientes.show', ['cliente' => $cliente->id])->with('success', 'cliente cadastrado com sucesso');
     }
 
     /**
      * Display the resource.
      */
-    public function show()
+    public function show(Cliente $cliente)
     {
-        //
+        // Carregar a VIEW
+        return view('clientes.show', ['cliente' => $cliente]);
     }
 
     /**
      * Show the form for editing the resource.
      */
-    public function edit()
+    public function edit(Cliente $cliente)
     {
-        //
+        
+        // Recuperar do banco de dados as situações
+        $users = User::orderBy('email', 'asc')->get();
+
+        // Carregar a VIEW
+        return view('clientes.edit', [
+            'cliente' => $cliente,
+            'users' => $users,
+        ]);
     }
 
     /**
      * Update the resource in storage.
      */
-    public function update(Request $request)
+    public function update(ClienteRequest $request, Cliente $cliente)
     {
-        //
+
+        // Validar o formulário
+        $request->validated();
+        
+        // Editar as informações do registro no banco de dados
+            $cliente->update([
+                'nome' => $request->nome,
+                'endereco' => $request->endereco,
+                'telefone' => $request->telefone,
+                'user_id' => $request->user_id,
+            ]);
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('clientes.show', ['cliente' => $cliente->id])->with('success', 'Cliente editado com sucesso');
+
     }
 
     /**
      * Remove the resource from storage.
      */
-    public function destroy(): never
+    public function destroy(Cliente $cliente)
     {
-        abort(404);
+        // Excluir o registro do banco de dados
+        $cliente->delete();
+
+        // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('clientes.index')->with('success', 'cliente apagado com sucesso');
     }
 }
