@@ -76,7 +76,7 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="confirmarExclusao(event, {{ $cliente->id }})">Apagar</button>
+                                        onclick="return confirm('Tem certesa de que deseja apagar o cliente {{ $cliente->nome }}')">Apagar</button>
                                 </form>
                             </td>
                         </tr>

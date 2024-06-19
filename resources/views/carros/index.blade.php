@@ -109,7 +109,7 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="confirmarExclusao(event, {{ $carro->id }})">Apagar</button>
+                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }}')">Apagar</button>
                                 </form>
                             </td>
                         </tr>

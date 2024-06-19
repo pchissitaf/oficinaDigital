@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
@@ -45,8 +46,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
+        // Validar o formulário
+       $request->validated();
+
         try {
             $dados = $request->all();
             User::create( $dados);
@@ -63,15 +67,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    /*public function show(string $id)
     {
-        $roles = Role::all();
 
-        return view('users.show',compact('roles'));
+        return view('users.show');
 
         
-    }
+    }*/
 
+    public function show(User $user)
+    {
+
+        return view('users.show', ['user' => $user]);
+     
+    }
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -82,11 +92,15 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    /*public function update(UserRequest $request, string $id)
     {
+        // Validar o formulário
+       $request->validated();
+
         try {
             $user = User::find($id);
             $dados = $request->all();
@@ -94,6 +108,7 @@ class UserController extends Controller
             if(!$dados['password']){
                 $dados['password'] = $user->password;
             }
+            
 
             $user->update($dados);
 
@@ -106,13 +121,39 @@ class UserController extends Controller
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';
             dd( $message);
         }
+    }*/
+
+    public function update(UserRequest $request, User $user)
+    {
+
+        // Validar o formulário
+        $request->validated();
+        
+        // Editar as informações do registro no banco de dados
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('users.show', ['user' => $user->id])->with('success', 'user editado com sucesso');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    /*public function destroy(string $id)
     {
         //
+    }*/
+
+    public function destroy(User $user)
+    {
+        // Excluir o registro do banco de dados
+        $user->delete();
+
+        // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('users.index')->with('success', 'user apagado com sucesso');
     }
 }

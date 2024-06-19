@@ -23,7 +23,6 @@ class ServicoController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
-
         // Carregar a VIEW
         return view('servicos.index', [
             'servicos' => $servicos,
