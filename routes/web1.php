@@ -53,7 +53,7 @@ Route::resource('servicos', ServicoController::class);
 Route::resource('clientes', ClienteController::class);
 Auth::routes();
 
-// CONTAS
+// Carros
 Route::get('/index-carro', [CarroController::class, 'index'])->name('carro.index');
 Route::get('/create-carro', [CarroController::class, 'create'])->name('carro.create');
 Route::post('/store-carro', [CarroController::class, 'store'])->name('carro.store');

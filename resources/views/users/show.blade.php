@@ -28,6 +28,9 @@
                 <dt class="col-sm-3">Nome</dt>
                 <dd class="col-sm-9">{{ $user->name }}</dd>
 
+                <dt class="col-sm-3">Nivel de Acesso</dt>
+                <dd class="col-sm-9">{{$user->nivel->nome}}</dd>
+
                 <dt class="col-sm-3">email</dt>
                 <dd class="col-sm-9">{{$user->email}}</dd>
 

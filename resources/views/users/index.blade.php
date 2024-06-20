@@ -69,10 +69,10 @@
                             <td class="d-md-flex justify-content-center">
                                 <a href="{{ route('users.show', ['user' => $user->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
-
+                                    @can('acesso', $user)
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
-
+                                    @endcan
                                 <form id="formExcluir{{ $user->id }}"
                                     action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
                                     @csrf

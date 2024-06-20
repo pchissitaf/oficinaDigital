@@ -65,6 +65,7 @@
                             <td>{{ $cliente->user->email }}</td>
                                                         
                             <td class="d-md-flex justify-content-center">
+                                
                                 <a href="{{ route('clientes.show', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
 

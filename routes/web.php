@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarroController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,15 +21,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('users', UserController::class);
-Route::resource('servicos', ServicoController::class);
-Route::resource('clientes', ClienteController::class);
-Auth::routes();
 
-// CONTAS
+Route::get('/dashboard', function () {
+    return view('index');
+})->name('dashboard');
+Route::resource('servicos', ServicoController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    /*Rotas */
+    Route::resource('users', UserController::class);
+    Route::resource('clientes', ClienteController::class);
+    Route::get('/logout', [ProfileController::class,'logout'])
+                ->middleware('auth')
+                ->name('logout');
+
+    // Carros
 Route::get('/index-carro', [CarroController::class, 'index'])->name('carro.index');
 Route::get('/create-carro', [CarroController::class, 'create'])->name('carro.create');
 Route::post('/store-carro', [CarroController::class, 'store'])->name('carro.store');
@@ -39,4 +52,6 @@ Route::get('/change-estado-carro/{carro}', [CarroController::class, 'changeEstad
 Route::get('/change-cliente/{cliente}', [CarroController::class, 'changeCliente'])->name('carro.change-cliente');
 
 Route::get('/gerar-pdf-carro', [CarroController::class, 'gerarPdf'])->name('carro.gerar-pdf');
+});
 
+require __DIR__.'/auth.php';

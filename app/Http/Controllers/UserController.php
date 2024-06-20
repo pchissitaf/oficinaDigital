@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Nivel;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
@@ -53,6 +54,7 @@ class UserController extends Controller
 
         try {
             $dados = $request->all();
+
             User::create( $dados);
             return redirect()->back();
             
@@ -85,11 +87,13 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        $user = User::find($id);
-
-        return view('users.edit', compact('user'));
+        $nivels = Nivel::orderBy('nome', 'asc')->get();
+        return view('users.edit', [
+            'user' => $user,
+            'nivels' => $nivels,
+        ]);
     }
 
 
@@ -133,6 +137,7 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'nivel_id'=>$request->nivel_id,
             ]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
@@ -150,10 +155,15 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        // Excluir o registro do banco de dados
-        $user->delete();
-
-        // Redirecionar o usuário, enviar a mensagem de sucesso
+        
+        if(Gate::allows('acesso', $user)){
+            $user->delete();
+            // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('users.index')->with('success', 'user apagado com sucesso');
+        }
+        if(Gate::denies('ver_carro', $user)){
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('users.index')->with('success', 'Você não tem autorização para apagar esse registo');
+        }
     }
 }

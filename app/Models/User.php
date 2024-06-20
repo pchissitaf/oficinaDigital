@@ -22,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'nivel_id',
         'password',
         
     ];
@@ -48,5 +49,9 @@ class User extends Authenticatable
     public function cliente(): HasOne
     {
         return $this->hasOne(Cliente::class);
+    }
+    public function nivel()
+    {
+        return $this->belongsTo(Nivel::class);
     }
 }

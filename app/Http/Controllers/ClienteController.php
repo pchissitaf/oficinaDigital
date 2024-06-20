@@ -6,12 +6,14 @@ use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ClienteController extends Controller
 {
     // Listar as clientes
     public function index(Request $request)
     {
+        
 
         // Recuperar os registros do banco dados
         $clientes = Cliente::when($request->has('nome'), function ($whenQuery) use ($request) {
@@ -34,6 +36,7 @@ class ClienteController extends Controller
     {
         // Recuperar do banco de dados os usuarios
         $users = User::orderBy('email', 'asc')->get();
+        Gate::authorize('acesso', $users);
 
         // Carregar a VIEW
         return view('clientes.create', [
@@ -70,6 +73,8 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
+        
+        Gate::authorize('ver_carro', $cliente);
         // Carregar a VIEW
         return view('clientes.show', ['cliente' => $cliente]);
     }
@@ -118,9 +123,17 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         // Excluir o registro do banco de dados
-        $cliente->delete();
-
-        // Redirecionar o usuário, enviar a mensagem de sucesso
+        
+        if(Gate::allows('ver_carro', $cliente)){
+            $cliente->delete();
+            // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('clientes.index')->with('success', 'cliente apagado com sucesso');
+        }
+        if(Gate::denies('ver_carro', $cliente)){
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('clientes.index')->with('success', 'Você não tem autorização para apagar esse registo');
+        }
+
+        
     }
 }

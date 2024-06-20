@@ -36,6 +36,20 @@
                     <input type="email" name="email" class="form-control" id="email" placeholder="Nome do user"
                         value="{{ old('email', $user->email) }}">
                 </div> 
+
+                <div class="col-md-4 col-sm-12">
+                    <label for="nivel_id" class="form-label">Email de Usuario</label>
+                    <select name="nivel_id" id="nivel_id" class="form-select">
+                        <option value="">Selecione</option>
+                        @forelse ($nivels as $nivels)
+                            <option value="{{ $nivels->id }}"
+                                {{ old('nivel_id', $user->nivel_id) == $nivels->id ? 'selected' : '' }}>
+                                {{ $nivels->nome }}</option>
+                        @empty
+                            <option value="">Nenhum Email de Usuario encontrado</option>
+                        @endforelse
+                    </select>
+                </div>
                 
                 <div class="col-md-12 col-sm-12">
                     <label for="password" class="form-label">password</label>
