@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Carro;
 use App\Models\Cliente;
+use App\Models\Funcionario;
 use App\Models\Nivel;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -40,6 +42,9 @@ class AuthServiceProvider extends ServiceProvider
           Gate::define('alterar_user', function(User $user){
             return ($user->nivel_id == 1);
           });
+          Gate::define('alterar_funcionario', function(User $user){
+            return ($user->nivel_id == 1);
+          });
 
       //Gates para Visualizar
         Gate::define('ver_servico', function(User $user){
@@ -58,6 +63,10 @@ class AuthServiceProvider extends ServiceProvider
           return ($user->nivel_id == 1 || $user->nivel_id == 2);
         });
 
+        //Filtros para exibir
+        Gate::define('filtro_carro', function(User $user, Carro $carro){
+          return ($user->id == $carro->funcionario_id );
+        });
 
           Gate::define('acesso', function(User $user){
             return $user->nivel_id = ! 1;

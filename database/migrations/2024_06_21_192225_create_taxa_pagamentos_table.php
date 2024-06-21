@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carros', function (Blueprint $table) {
+        Schema::create('taxa_pagamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('modelo');
-            $table->string('cor');
-            $table->string('marca');
-            $table->string('tipo');
-            $table->string('avaria');
-            $table->string('codigo_validacao');
-            $table->date('ano');
+            $table->string('nome_taxa');
+            $table->float('preco_taxa');
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carros');
+        Schema::dropIfExists('taxa_pagamentos');
     }
 };

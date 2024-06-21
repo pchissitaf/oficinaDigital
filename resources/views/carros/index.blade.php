@@ -49,12 +49,8 @@
             <span>Listar Carros</span>
             <span>
                 <a href="{{ route('carro.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
-                {{-- <a href="{{ route('carro.gerar-pdf') }}" class="btn btn-warning btn-sm">Gerar PDF</a> --}}
-                {{-- {{ dd(request()->getQueryString()) }} --}}
-
                 <a href="{{ url('gerar-pdf-carro?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
                     PDF</a>
-
             </span>
         </div>
 
@@ -73,16 +69,18 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Estado</th>
                         <th scope="col">T de Avaria</th>
-                        <th scope="col">Proprietario</th>
+                        <th scope="col">Proprietario</th>                        
+                        <th scope="col">Funcionario</th>
                         <th scope="col">Validacao</th>
-                        <th scope="col">Valor</th>
                         <th scope="col">Ano</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($carros as $carro)
+                        
                         <tr>
+                            @can('filtro_carro', $carro)
                             <td>{{ $carro->id }}</td>
                             <td>{{ $carro->modelo }}</td>
                             <td>{{ $carro->cor }}</td>
@@ -93,15 +91,16 @@
                                     {!! '<span class="badge text-bg-' . $carro->estadoCarro->cor . '">' . $carro->estadoCarro->nome . '</span>' !!}
                                 </a>
                             </td>
-                            <td>{{ $carro->tipo_de_avaria }}</td>
-                            <td>{{ $carro->cliente->nome }}</td>
+                            <td>{{ $carro->avaria }}</td>
+                            <td>{{ $carro->user->name }}</td>
+                            @if ($carro->user->id =! $carro->funcionario_id)
+                                dd('diferente');
+                            @endif
+                            <td>{{ $carro->user->name }}</td>
                             <td>{{ $carro->codigo_validacao }}</td>
-                            <td>{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</td>
                             <td>{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}
                             </td>
-
                             
-
                             <td class="d-md-flex justify-content-center">
                                 <a href="{{ route('carro.show', ['carro' => $carro->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
@@ -114,8 +113,9 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }}')">Apagar</button>
+                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }} ?')">Apagar</button>
                                 </form>
+                                @endcan
                                 @endcan
                             </td>
                         </tr>

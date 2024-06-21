@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cliente extends Model
 {
@@ -14,12 +13,7 @@ class Cliente extends Model
     // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['nome', 'endereco', 'telefone', 'user_id',];
 
-    // Criar Relacionamento
-    public function carro()
-    {
-        return $this->hasMany(Carro::class);
-    }
-
+    // Criar Relacionamentos
     
     public function user(): BelongsTo
     {

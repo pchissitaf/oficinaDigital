@@ -18,8 +18,9 @@
                 <th style="border: 1px solid #ccc;">Marca</th>
                 <th style="border: 1px solid #ccc;">Tipo</th>
                 <th style="border: 1px solid #ccc;">Estado</th>
-                <th style="border: 1px solid #ccc;">Tipo de Avaria</th>
-                <th style="border: 1px solid #ccc;">Proprietario</th>
+                <th style="border: 1px solid #ccc;">Avaria</th>
+                <th style="border: 1px solid #ccc;">Proprietario</th>                
+                <th style="border: 1px solid #ccc;">Funcionario</th>
                 <th style="border: 1px solid #ccc;">Codigo de Validacao</th>
                 <th style="border: 1px solid #ccc;">Ano</th>
                 <th style="border: 1px solid #ccc;">Valor</th>
@@ -35,8 +36,9 @@
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->marca }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->tipo }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->estadoCarro->nome }}</td>
-                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->tipo_de_avaria }}</td>
-                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->cliente->nome }}</td>
+                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->avaria }}</td>
+                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->user->name }}</td>
+                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->user->name }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->codigo_validacao }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</td>

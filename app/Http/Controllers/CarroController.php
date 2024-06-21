@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarroRequest;
 use App\Models\Carro;
-use App\Models\Cliente;
 use App\Models\EstadoCarro;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -23,6 +22,7 @@ class CarroController extends Controller
 
         // Recuperar os registros do banco dados
         $user = User::find(1);
+        $funcionario=$user->funcionario_id;
         $carros = Carro::when($request->has('modelo'), function ($whenQuery) use ($request) {
             $whenQuery->where('modelo', 'like', '%' . $request->modelo . '%');
         })
@@ -35,7 +35,7 @@ class CarroController extends Controller
             ->when($request->filled('data_fim'), function ($whenQuery) use ($request) {
                 $whenQuery->where('ano', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
             })
-            ->with('estadoCarro', 'cliente')
+            ->with('estadoCarro','user')
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
@@ -47,6 +47,7 @@ class CarroController extends Controller
             'data_fim' => $request->data_fim,
             'user' => $user,
             'estado_carro_id' => $request->estado_carro_id,
+            'funcionario' => $funcionario,
         ]);
     }
     /**
@@ -65,12 +66,12 @@ class CarroController extends Controller
     {
         // Recuperar do banco de dados os estados
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
-        $clientes = Cliente::orderBy('nome', 'asc')->get();
+        $users = User::orderBy('name', 'asc')->get();
         $user = User::find(1);    
         Gate::authorize('alterar_servico', $user);
         // Carregar a VIEW
         return view('carros.create', [
-            'estadoCarros' => $estadoCarros, 'clientes' => $clientes,
+            'estadoCarros' => $estadoCarros, 'users' => $users,
         ]);
     }
 
@@ -81,30 +82,22 @@ class CarroController extends Controller
         // Validar o formulário
         $request->validated();
 
-        try {
-
             // Cadastrar no banco de dados na tabela carros os valores de todos os campos
             $carro = Carro::create([
                 'modelo' => $request->modelo, 
                 'cor' => $request->cor, 
                 'marca' => $request->marca, 
                 'tipo' => $request->tipo,
-                'estado_carro_id' => $request->estado_carro_id, 'tipo_de_avaria' => $request->tipo_de_avaria,
-                'cliente_id' => $request->cliente_id,  'codigo_validacao' =>Str::random(5),
-                'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
+                'estado_carro_id' => $request->estado_carro_id, 
+                'avaria' => $request->avaria,
+                'user_id' => $request->user_id,
+                'funcionario_id' => $request->funcionario_id,
+                'codigo_validacao' =>Str::random(5),
                 'ano' => $request->ano,
             ]);
             
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('carro.show', ['carro' => $carro->id])->with('success', 'carro cadastrado com sucesso');
-        } catch (Exception $e) {
-
-            // Salvar log
-            Log::warning('carro não cadastrado', ['error' => $e->getMessage()]);
-
-            // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'carro não cadastrado!');
-        }
     }
 
     // Carregar o formulário editar a carro
@@ -112,13 +105,13 @@ class CarroController extends Controller
     {
         // Recuperar do banco de dados as situações
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
-        $clientes = Cliente::orderBy('nome', 'asc')->get();
+        $users = user::orderBy('name', 'asc')->get();
         $user = User::find(1);    
         if(Gate::allows('alterar_carro', $user)){
        // Carregar a VIEW
        return view('carros.edit', [
         'carro' => $carro,
-        'estadoCarros' => $estadoCarros, 'clientes' =>$clientes,
+        'estadoCarros' => $estadoCarros, 'users' =>$users,
         ]);}
        if(Gate::denies('alterar_carro', $user)){
         return back()->with('success', 'Não Tem Autorização Para Esta Acção');
@@ -131,9 +124,6 @@ class CarroController extends Controller
     {
         // Validar o formulário
         $request->validated();
-
-        try {
-
             // Editar as informações do registro no banco de dados
             $carro->update([
                 'modelo' => $request->modelo,
@@ -141,24 +131,14 @@ class CarroController extends Controller
                 'marca' => $request->marca,
                 'tipo' => $request->tipo,
                 'estado_carro_id' => $request->estado_carro_id,
-                'tipo_de_avaria' => $request->tipo_de_avaria,
-                'cliente_id' => $request->cliente_id,
-                'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
+                'avaria' => $request->avaria,
+                'user_id' => $request->user_id,
+                'funcionario_id' => $request->funcionario_id,
                 'ano' => $request->ano,
             ]);
 
-            // Salvar log
-            Log::info('carro editado com sucesso', ['id' => $carro->id, 'carro' => $carro]);
-
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('carro.show', ['carro' => $carro->id])->with('success', 'carro editado com sucesso');
-        } catch (Exception $e) {
-
-            // Salvar log
-            Log::warning('carro não editado', ['error' => $e->getMessage()]);
-            // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'carro não editado!');
-        }
     }
 
     // Excluir a carro do banco de dados
@@ -215,27 +195,13 @@ class CarroController extends Controller
     // Alterar Estado do carro
     public function changeEstado(Carro $carro)
     {
-
-        try {
-
             // Editar as informações do registro no banco de dados
             $carro->update([
                 'estado_carro_id' => $carro->estado_carro_id == 1 ? 2 : 1,
             ]);
 
-            // Salvar log
-            Log::info('Estado do carro editado com sucesso', ['id' => $carro->id, 'carro' => $carro]);
-
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return back()->with('success', 'Estado do carro editado com sucesso!');
-        } catch (Exception $e) {
-
-            // Salvar log
-            Log::warning('Estado do carro não editado', ['error' => $e->getMessage()]);
-
-            // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->with('error', 'Estado do carro não editado!');
-        }
     }
 
     

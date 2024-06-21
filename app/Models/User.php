@@ -59,4 +59,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Nivel::class);
     }
+    public function carro()
+    {
+        return $this->hasMany(Carro::class);
+    }
 }

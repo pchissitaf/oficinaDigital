@@ -28,7 +28,7 @@
 								<li><a href="{{ route('users.index') }}">Usuarios</a></li>
 								<li><a href="{{ route('clientes.index') }}">Clientes</a></li>
 								<li><a href="{{ route('servicos.index') }}">Servicos</a></li>
-								<li><a href="#">Funcionarios</a></li>
+								<li><a href="{{ route('funcionarios.index') }}">Funcionarios</a></li>
                                 @else
                                 <li><a href="{{ route('dashboard') }}">Home</a></li>
                                 <li><a href="{{ route('servicos.index') }}">Servicos</a></li>
@@ -75,7 +75,7 @@
 								<li><a href="{{ route('users.index') }}">Usuarios</a></li>
 								<li><a href="{{ route('clientes.index') }}">Clientes</a></li>
 								<li><a href="{{ route('servicos.index') }}">Servicos</a></li>
-								<li><a href="#">Funcionarios</a></li>
+								<li><a href="{{ route('funcionarios.index') }}">Funcionarios</a></li>
 								</ul>
 							</section>
 

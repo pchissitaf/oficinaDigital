@@ -21,9 +21,8 @@ class CarroSeeder extends Seeder
                 'cor' => 'Amarelo',
                 'marca' => 'Toyota',
                 'tipo' => 'Ligeiro',
-                'tipo_de_avaria' => 'Motor',
+                'avaria' => 'Motor',
                 'codigo_validacao' => Str::random(5),
-                'valor' => '147.52',
                 'ano' => '2024-01-23',
             ]);
         }
@@ -34,9 +33,8 @@ class CarroSeeder extends Seeder
                 'cor' => 'Cinza',
                 'marca' => 'Hiunday',
                 'tipo' => 'Ligeiro',
-                'tipo_de_avaria' => 'Chaparia',
+                'avaria' => 'Chaparia',
                 'codigo_validacao' => Str::random(5),
-                'valor' => '250.52',
                 'ano' => '2024-01-23',
             ]);
         }
@@ -47,9 +45,8 @@ class CarroSeeder extends Seeder
                 'cor' => 'Vermelho',
                 'marca' => 'Cheverlet',
                 'tipo' => 'Ligeiro',
-                'tipo_de_avaria' => 'Motor',
+                'avaria' => 'Motor',
                 'codigo_validacao' => Str::random(5),
-                'valor' => '147.52',
                 'ano' => '2024-01-23',
             ]);
         }
@@ -60,9 +57,8 @@ class CarroSeeder extends Seeder
                 'cor' => 'Azul',
                 'marca' => 'Toyota',
                 'tipo' => 'Ligeiro',
-                'tipo_de_avaria' => 'Motor',
+                'avaria' => 'Motor',
                 'codigo_validacao' => Str::random(5),
-                'valor' => '147.52',
                 'ano' => '2024-01-23',
             ]);
         }
@@ -73,13 +69,10 @@ class CarroSeeder extends Seeder
                 'cor' => 'Preto',
                 'marca' => 'Ranger',
                 'tipo' => 'Ligeiro',
-                'tipo_de_avaria' => 'Motor',
+                'avaria' => 'Motor',
                 'codigo_validacao' => Str::random(5),
-                'valor' => '147.52',
                 'ano' => '2024-01-23',
             ]);
-        }
-
- 
+        } 
     }
 }

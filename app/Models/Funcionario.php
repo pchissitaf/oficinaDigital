@@ -11,7 +11,7 @@ class Funcionario extends Model
     use HasFactory;
     // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['nome', 'endereco', 'telefone', 
-                'bilhete','documento','salario','nivel_id','user_id',];
+                'bilhete','doc_file','nivel_id','salario','user_id',];
 
     // Criar Relacionamento
     public function user(): BelongsTo

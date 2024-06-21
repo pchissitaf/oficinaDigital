@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('telefone');
             $table->string('bilhete');
-            $table->string('doc_file');
+            $table->string('doc_file')->default('Sem Documento');
             $table->float('salario');
             $table->timestamps();
         });

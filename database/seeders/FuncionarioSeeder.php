@@ -20,9 +20,26 @@ class FuncionarioSeeder extends Seeder
                 'endereco' => 'Lubango',
                 'telefone' => '932471147', 
                 'bilhete' => '006706547HA048',
+                'user_id' => 1,
                 'salario' => '408569',
+                'nivel_id' => 1,
             ]);
         }
+        Funcionario::create([
+            'nome' => 'Eugenio',
+            'endereco' => 'Lubango',
+            'telefone' => '932471147', 
+            'bilhete' => '006706547HA048',
+            'user_id' => 2,
+            'salario' => '408569',
+        ]);
+        Funcionario::create([
+            'nome' => 'Chissita',
+            'endereco' => 'Lubango',
+            'telefone' => '932471147', 
+            'bilhete' => '006706547HA048',
+            'salario' => '408569',
+        ]);
 
     }
 }

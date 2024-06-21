@@ -30,7 +30,7 @@
                     <li><a href="{{ route('clientes.index') }}" class="nav-link px-2 text-white">Clientes</a></li>
                     <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">Usuarios</a></li>
                     <li><a href="{{ route('servicos.index') }}" class="nav-link px-2 text-white">Servicos</a></li>
-                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white">Funcionarios</a></li>                    
+                    <li><a href="{{ route('funcionarios.index') }}" class="nav-link px-2 text-white">Funcionarios</a></li>                    
                 </ul>
 
                 <div class="text-end">

@@ -27,8 +27,10 @@ class CarroRequest extends FormRequest
             'marca' => 'required',
             'tipo' => 'required',
             'estado_carro_id' => 'required',
-            'valor' => 'required|max:10',
+            'marca' => 'required',
             'ano' => 'required',
+            'user_id' => 'required',
+            'funcionario_id' => 'required',
             'estado_carro_id' => 'required',
         ];
     }
@@ -41,8 +43,6 @@ class CarroRequest extends FormRequest
             'marca.required' => 'Campo marca é obrigatório!',
             'tipo.required' => 'Campo tipo é obrigatório!',
             'estado_carro_id.required' => 'Campo estado do carro é obrigatório!',
-            'valor.required' => 'Campo valor é obrigatório!',
-            'valor.max' => 'O preço só pode ter no máximo 8 números!',
             'ano.required' => 'Campo ano é obrigatório!',
             'estado_carro_id.required' => 'Campo situação da conta é obrigatório!',
         ];

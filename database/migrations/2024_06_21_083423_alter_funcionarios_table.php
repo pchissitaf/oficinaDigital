@@ -14,7 +14,7 @@ return new class extends Migration
         //
         Schema::table('funcionarios', function (Blueprint $table) {
             $table->foreignId('nivel_id')->after('doc_file')->default(6)->constrained('nivels');
-            $table->foreignId('user_id')->after('salario')->default(6)->constrained('users');
+            $table->foreignId('user_id')->after('salario')->default(2)->constrained('users');
         });
     }
 

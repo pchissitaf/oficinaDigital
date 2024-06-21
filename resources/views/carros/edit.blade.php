@@ -72,24 +72,31 @@
                 </div>
 
                 <div class="col-md-4 col-sm-12">
-                    <label for="cliente_id" class="form-label">Proprietario</label>
-                    <select name="cliente_id" id="cliente_id" class="form-select">
+                    <label for="user_id" class="form-label">Proprietario</label>
+                    <select name="user_id" id="user_id" class="form-select">
                         <option value="">Selecione</option>
-                        @forelse ($clientes as $cliente)
-                            <option value="{{ $cliente->id }}"
-                                {{ old('cliente_id', $carro->cliente_id) == $cliente->id ? 'selected' : '' }}>
-                                {{ $cliente->nome }}</option>
+                        @forelse ($users as $user)
+                            <option value="{{ $user->id }}"
+                                {{ old('user_id', $carro->user_id) == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}</option>
                         @empty
                             <option value="">Nenhum Proprietario</option>
                         @endforelse
                     </select>
                 </div>
 
-
                 <div class="col-md-4 col-sm-12">
-                    <label for="valor" class="form-label">Valor</label>
-                    <input type="text" name="valor" class="form-control" id="valor" placeholder="Valor da carro"
-                        value="{{ old('valor', $carro->valor) }}">
+                    <label for="funcionario_id" class="form-label">Funcionario</label>
+                    <select name="funcionario_id" id="funcionario_id" class="form-select">
+                        <option value="">Selecione</option>
+                        @forelse ($users as $user)
+                            <option value="{{ $user->id }}"
+                                {{ old('user_id', $carro->user_id) == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}</option>
+                        @empty
+                            <option value="">Nenhum Funcionario</option>
+                        @endforelse
+                    </select>
                 </div>
 
                 <div class="col-md-4 col-sm-12">

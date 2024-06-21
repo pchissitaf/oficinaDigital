@@ -46,22 +46,21 @@
                 </dd>
                 <dt class="col-sm-3">tipo de avaria</dt>
                 <dd class="col-sm-9">{{ $carro->tipo_de_avaria }}</dd>
+
                 <dt class="col-sm-3">Proprietario</dt>
-                <dd class="col-sm-9">{{ $carro->cliente->nome }}</dd>
-                <dt class="col-sm-3">Valor</dt>
-                <dd class="col-sm-9">{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</dd>
+                <dd class="col-sm-9">{{ $carro->user->name }}</dd> 
+
+                <dt class="col-sm-3">Funcionario</dt>    
+                <dd class="col-sm-9">{{ $carro->user->name }}</dd>
 
                 <dt class="col-sm-3">ano</dt>
                 <dd class="col-sm-9">{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}</dd>
-
-                
 
                 <dt class="col-sm-3">Cadastrado</dt>
                 <dd class="col-sm-9">{{ \Carbon\Carbon::parse($carro->created_at)->format('d/m/Y H:i:s') }}</dd>
 
                 <dt class="col-sm-3">Editado</dt>
                 <dd class="col-sm-9">{{ \Carbon\Carbon::parse($carro->updated_at)->format('d/m/Y H:i:s') }}</dd>
-
             </dl>
             
         </div>
