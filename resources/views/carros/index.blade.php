@@ -15,6 +15,11 @@
                         <input type="text" name="modelo" id="modelo" class="form-control" value="{{ $modelo }}"
                             placeholder="modelo do carro" />
                     </div>
+                    <div class="col-md-3 col-sm-12">
+                        <label class="form-label" for="estado_carro_id">Estado do Carro</label>
+                        <input type="text" name="estado_carro_id" id="estado_carro_id" class="form-control" value="{{ $estado_carro_id }}"
+                            placeholder="1-Pago | 2-Pendente | 3-Cancelado" />
+                    </div>
 
                     <div class="col-md-3 col-sm-12">
                         <label class="form-label" for="data_inicio">Data Início</label>
@@ -100,7 +105,7 @@
                             <td class="d-md-flex justify-content-center">
                                 <a href="{{ route('carro.show', ['carro' => $carro->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
-
+                                @can('alterar_carro', $user)
                                 <a href="{{ route('carro.edit', ['carro' => $carro->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
 
@@ -111,6 +116,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
                                         onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }}')">Apagar</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @empty

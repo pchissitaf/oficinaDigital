@@ -46,9 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Criar Relacionamento
     public function cliente(): HasOne
     {
         return $this->hasOne(Cliente::class);
+    }
+    public function funcionario(): HasOne
+    {
+        return $this->hasOne(Funcionario::class);
     }
     public function nivel()
     {

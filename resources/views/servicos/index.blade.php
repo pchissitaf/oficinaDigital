@@ -69,7 +69,8 @@
                             <td class="d-md-flex justify-content-center">
                                 <a href="{{ route('servicos.show', ['servico' => $servico->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
-
+                                    
+                                @can('alterar_servico', $user)
                                 <a href="{{ route('servicos.edit', ['servico' => $servico->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
 
@@ -80,6 +81,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
                                         onclick="return confirm('Tem certesa de que deseja apagar o servico {{ $servico->nome }}')">Apagar</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @empty

@@ -40,14 +40,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+        $user = User::find(1);    
+        Gate::authorize('alterar_user', $user); 
         return view('users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    /*public function store(UserRequest $request)
     {
         // Validar o formulário
        $request->validated();
@@ -64,8 +65,25 @@ class UserController extends Controller
           dd( $message);
         }
       
-    }
+    }*/
 
+    // Cadastrar no banco de dados nova servico
+   public function store(UserRequest $request)
+   {
+
+       // Validar o formulário
+       $request->validated();
+
+           // Cadastrar no banco de dados na tabela servicos os valores de todos os campos
+           $user = User::create([
+               'name' => $request->name,
+               'email' => $request->email,
+               'password' => bcrypt($request->password),
+           ]);
+
+           // Redirecionar o usuário, enviar a mensagem de sucesso
+           return redirect()->route('users.show', ['user' => $user->id])->with('success', 'usuario cadastrado com sucesso');
+   }
     /**
      * Display the specified resource.
      */
@@ -96,36 +114,6 @@ class UserController extends Controller
         ]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    /*public function update(UserRequest $request, string $id)
-    {
-        // Validar o formulário
-       $request->validated();
-
-        try {
-            $user = User::find($id);
-            $dados = $request->all();
-
-            if(!$dados['password']){
-                $dados['password'] = $user->password;
-            }
-            
-
-            $user->update($dados);
-
-            return redirect()->back();
-
-
-
-            
-        } catch (\Throwable $th) {
-            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';
-            dd( $message);
-        }
-    }*/
 
     public function update(UserRequest $request, User $user)
     {

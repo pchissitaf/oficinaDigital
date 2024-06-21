@@ -7,7 +7,7 @@
 </head>
 
 <body style="font-size: 12px;">
-    <h2 style="text-align: center">Lista de Carros</h2>
+    <h2 style="text-align: center">Relatorio de Carros</h2>
 
     <table style="border-collapse: collapse; width: 100%;">
         <thead>
@@ -43,12 +43,12 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4">Nenhuma carro encontrada!</td>
+                    <td colspan="4">Nenhum carro encontrado!</td>
                 </tr>
             @endforelse
 
             <tr>
-                <td colspan="12" style="border: 1px solid #cccccc; border-top: none;">Total</td>
+                <td colspan="9" style="border: 1px solid #cccccc; border-top: none;">Total</td>
                 <td style="border: 1px solid #ccc; border-top: none;">{{ 'Akz ' . number_format($totalValor, 2, ',', '.') }}</td>
             </tr>
         </tbody>

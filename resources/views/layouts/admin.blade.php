@@ -29,11 +29,17 @@
                     <li><a href="{{ route('carro.index') }}" class="nav-link px-2 text-white">Carros</a></li>
                     <li><a href="{{ route('clientes.index') }}" class="nav-link px-2 text-white">Clientes</a></li>
                     <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">Usuarios</a></li>
-                    <li><a href="{{ route('servicos.index') }}" class="nav-link px-2 text-white">Servicos</a></li>                    
+                    <li><a href="{{ route('servicos.index') }}" class="nav-link px-2 text-white">Servicos</a></li>
+                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white">Funcionarios</a></li>                    
                 </ul>
 
                 <div class="text-end">
+                    @auth
                     <a href="{{ route('logout') }}" type="button" class="btn btn-warning">Terminar Sessao</a>
+                    <a href="{{ route('logout') }}" type="button" class="btn btn-warning">Logado</a>
+                    @else
+                    <a href="{{ route('login') }}" type="button" class="btn btn-warning">Iniciar Sessao</a>
+                    @endauth
 
                 </div>
             </div>

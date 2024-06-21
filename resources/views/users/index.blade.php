@@ -52,6 +52,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Nivel de Acesso</th>
                         <th scope="col">Criado</th>
                         <th scope="col">Editado</th>
                         <th scope="col" class="text-center">Ações</th>
@@ -63,16 +64,16 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->nivel->nome }}</td>
                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($user->updated_at)->format('d/m/Y') }}</td>
                                                         
                             <td class="d-md-flex justify-content-center">
                                 <a href="{{ route('users.show', ['user' => $user->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
-                                    @can('acesso', $user)
+                                @can('alterar_user', $user)
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
-                                    @endcan
                                 <form id="formExcluir{{ $user->id }}"
                                     action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
                                     @csrf
@@ -80,6 +81,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
                                         onclick="return confirm('Tem certesa de que deseja apagar o usuario {{ $user->name }}')">Apagar</button>
                                 </form>
+                            @endcan
                             </td>
                         </tr>
                     @empty

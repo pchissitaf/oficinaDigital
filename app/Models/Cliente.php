@@ -14,6 +14,7 @@ class Cliente extends Model
     // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['nome', 'endereco', 'telefone', 'user_id',];
 
+    // Criar Relacionamento
     public function carro()
     {
         return $this->hasMany(Carro::class);

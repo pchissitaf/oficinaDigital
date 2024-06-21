@@ -27,5 +27,16 @@ class UserSeeder extends Seeder
 
         ]);
 
+        $user = User::create([
+            'name'  => 'Steel Estranho',
+            'email' => 'steelf@gmail.com',
+            'nivel_id' => '4',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
     }
 }

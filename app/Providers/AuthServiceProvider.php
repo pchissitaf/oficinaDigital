@@ -24,10 +24,40 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-          Gate::define('ver_carro', function(User $user, Cliente $cliente){
-            return $user->id == $cliente->user_id;
-
+      //Gates para alterar
+          Gate::define('alterar_servico', function(User $user){
+            return ($user->nivel_id == 1 || $user->nivel_id == 2 || $user->nivel_id == 5);
           });
+          Gate::define('alterar_carro', function(User $user){
+            return ($user->nivel_id == 1 || $user->nivel_id == 2);
+          });
+          Gate::define('alterar_estado', function(User $user){
+            return ($user->nivel_id == 1 | $user->nivel_id == 2 || $user->nivel_id == 3);
+          });
+          Gate::define('alterar_cliente', function(User $user){
+            return ($user->nivel_id == 1 || $user->nivel_id == 2 || $user->nivel_id == 4);
+          });
+          Gate::define('alterar_user', function(User $user){
+            return ($user->nivel_id == 1);
+          });
+
+      //Gates para Visualizar
+        Gate::define('ver_servico', function(User $user){
+          return ($user->nivel_id == 1 || $user->nivel_id == 2 || $user->nivel_id == 5);
+        });
+        Gate::define('ver_carro', function(User $user){
+          return ($user->nivel_id == 1 || $user->nivel_id == 2);
+        });
+        Gate::define('ver_estado', function(User $user){
+          return ($user->nivel_id == 1 | $user->nivel_id == 2 || $user->nivel_id == 3);
+        });
+        Gate::define('ver_cliente', function(User $user){
+          return ($user->nivel_id == 1 || $user->nivel_id == 2 || $user->nivel_id == 4);
+        });
+        Gate::define('ver_user', function(User $user){
+          return ($user->nivel_id == 1 || $user->nivel_id == 2);
+        });
+
 
           Gate::define('acesso', function(User $user){
             return $user->nivel_id = ! 1;

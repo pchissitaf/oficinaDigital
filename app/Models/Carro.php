@@ -17,6 +17,7 @@ class Carro extends Model
     // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['modelo', 'cor', 'marca', 'tipo', 'estado_carro_id', 'tipo_de_avaria','codigo_validacao', 'cliente_id','valor','ano',];
 
+    // Criar Relacionamento
     public function estadoCarro()
     {
         return $this->belongsTo(EstadoCarro::class);

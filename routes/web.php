@@ -21,24 +21,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
     return view('index');
 })->name('dashboard');
 Route::resource('servicos', ServicoController::class);
+Route::get('/logout', [ProfileController::class,'logout'])
+                ->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','accessUser'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     /*Rotas */
     Route::resource('users', UserController::class);
     Route::resource('clientes', ClienteController::class);
-    Route::get('/logout', [ProfileController::class,'logout'])
-                ->middleware('auth')
-                ->name('logout');
+    
 
     // Carros
 Route::get('/index-carro', [CarroController::class, 'index'])->name('carro.index');

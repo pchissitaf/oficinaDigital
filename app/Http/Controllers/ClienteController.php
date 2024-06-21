@@ -16,6 +16,7 @@ class ClienteController extends Controller
         
 
         // Recuperar os registros do banco dados
+        $user = User::find(1);
         $clientes = Cliente::when($request->has('nome'), function ($whenQuery) use ($request) {
             $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
         })
@@ -27,6 +28,7 @@ class ClienteController extends Controller
         return view('clientes.index', [
             'clientes' => $clientes,
             'nome' => $request->nome,
+            'user' => $user,
         ]);
     }
     /**
@@ -36,7 +38,8 @@ class ClienteController extends Controller
     {
         // Recuperar do banco de dados os usuarios
         $users = User::orderBy('email', 'asc')->get();
-        Gate::authorize('acesso', $users);
+        $user = User::find(1);    
+        Gate::authorize('alterar_cliente', $user);
 
         // Carregar a VIEW
         return view('clientes.create', [
@@ -47,7 +50,7 @@ class ClienteController extends Controller
     /**
      * Store the newly created resource in storage.
      */
-    // Cadastrar no banco de dados novo carro
+    // Cadastrar no banco de dados novo cliente
     public function store(ClienteRequest $request)
     {
 
@@ -56,7 +59,7 @@ class ClienteController extends Controller
 
         
 
-            // Cadastrar no banco de dados na tabela carros os valores de todos os campos
+            // Cadastrar no banco de dados na tabela clientes os valores de todos os campos
             $cliente = Cliente::create([
                 'nome' => $request->nome, 
                 'endereco' => $request->endereco, 
@@ -73,8 +76,6 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        
-        Gate::authorize('ver_carro', $cliente);
         // Carregar a VIEW
         return view('clientes.show', ['cliente' => $cliente]);
     }
@@ -84,24 +85,25 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        
         // Recuperar do banco de dados as situações
         $users = User::orderBy('email', 'asc')->get();
-
-        // Carregar a VIEW
-        return view('clientes.edit', [
-            'cliente' => $cliente,
-            'users' => $users,
-        ]);
+        $user = User::find(1);    
+        if(Gate::allows('alterar_cliente', $user)){
+       // Carregar a VIEW
+       return view('clientes.edit', [
+        'cliente' => $cliente,
+        'users' => $users,
+            ]);}
+       if(Gate::denies('alterar_cliente', $user)){
+        return back()->with('success', 'Não Tem Autorização Para Esta Acção');
+       }   
     }
 
-    /**
-     * Update the resource in storage.
-     */
+    // Validar o formulário
     public function update(ClienteRequest $request, Cliente $cliente)
     {
 
-        // Validar o formulário
+        
         $request->validated();
         
         // Editar as informações do registro no banco de dados
@@ -117,23 +119,17 @@ class ClienteController extends Controller
 
     }
 
-    /**
-     * Remove the resource from storage.
-     */
+    // Excluir o registro do banco de dados
     public function destroy(Cliente $cliente)
     {
-        // Excluir o registro do banco de dados
-        
-        if(Gate::allows('ver_carro', $cliente)){
+        if(Gate::allows('alterar_cliente', $cliente)){
             $cliente->delete();
             // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('clientes.index')->with('success', 'cliente apagado com sucesso');
         }
-        if(Gate::denies('ver_carro', $cliente)){
+        if(Gate::denies('alterar_cliente', $cliente)){
             // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('clientes.index')->with('success', 'Você não tem autorização para apagar esse registo');
-        }
-
-        
+        }   
     }
 }

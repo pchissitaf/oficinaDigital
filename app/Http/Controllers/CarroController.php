@@ -6,6 +6,7 @@ use App\Http\Requests\CarroRequest;
 use App\Models\Carro;
 use App\Models\Cliente;
 use App\Models\EstadoCarro;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,9 +22,13 @@ class CarroController extends Controller
     {
 
         // Recuperar os registros do banco dados
+        $user = User::find(1);
         $carros = Carro::when($request->has('modelo'), function ($whenQuery) use ($request) {
             $whenQuery->where('modelo', 'like', '%' . $request->modelo . '%');
         })
+            ->when($request->has('estado_carro_id'), function ($whenQuery) use ($request) {
+                $whenQuery->where('estado_carro_id', 'like', '%' . $request->estado_carro_id . '%');
+            })
             ->when($request->filled('data_inicio'), function ($whenQuery) use ($request) {
                 $whenQuery->where('ano', '>=', \Carbon\Carbon::parse($request->data_inicio)->format('Y-m-d'));
             })
@@ -40,6 +45,8 @@ class CarroController extends Controller
             'modelo' => $request->modelo,
             'data_inicio' => $request->data_inicio,
             'data_fim' => $request->data_fim,
+            'user' => $user,
+            'estado_carro_id' => $request->estado_carro_id,
         ]);
     }
     /**
@@ -59,7 +66,8 @@ class CarroController extends Controller
         // Recuperar do banco de dados os estados
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
         $clientes = Cliente::orderBy('nome', 'asc')->get();
-
+        $user = User::find(1);    
+        Gate::authorize('alterar_servico', $user);
         // Carregar a VIEW
         return view('carros.create', [
             'estadoCarros' => $estadoCarros, 'clientes' => $clientes,
@@ -105,12 +113,17 @@ class CarroController extends Controller
         // Recuperar do banco de dados as situações
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
         $clientes = Cliente::orderBy('nome', 'asc')->get();
-
-        // Carregar a VIEW
-        return view('carros.edit', [
-            'carro' => $carro,
-            'estadoCarros' => $estadoCarros, 'clientes' =>$clientes,
-        ]);
+        $user = User::find(1);    
+        if(Gate::allows('alterar_carro', $user)){
+       // Carregar a VIEW
+       return view('carros.edit', [
+        'carro' => $carro,
+        'estadoCarros' => $estadoCarros, 'clientes' =>$clientes,
+        ]);}
+       if(Gate::denies('alterar_carro', $user)){
+        return back()->with('success', 'Não Tem Autorização Para Esta Acção');
+       }
+        
     }
 
     // Editar no banco de dados a carro
@@ -151,12 +164,16 @@ class CarroController extends Controller
     // Excluir a carro do banco de dados
     public function destroy(Carro $carro)
     {
+        $user = User::find(1);    
+        if(Gate::allows('alterar_carro', $user)){
+       // Excluir o registro do banco de dados
+       $carro->delete();
 
-        // Excluir o registro do banco de dados
-        $carro->delete();
-
-        // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('carro.index')->with('success', 'carro apagado com sucesso');
+       // Redirecionar o usuário, enviar a mensagem de sucesso
+       return redirect()->route('carro.index')->with('success', 'carro apagado com sucesso');;}
+       if(Gate::denies('alterar_carro', $user)){
+        return back()->with('success', 'Não Tem Autorização Para Esta Acção');
+       } 
     }
 
     // Gerar PDF
@@ -169,6 +186,9 @@ class CarroController extends Controller
         // Recuperar e pesquisar os registros do banco dados
         $carros = Carro::when($request->has('modelo'), function ($whenQuery) use ($request) {
             $whenQuery->where('modelo', 'like', '%' . $request->modelo . '%');
+        })
+        ->when($request->has('estado_carro_id'), function ($whenQuery) use ($request) {
+            $whenQuery->where('estado_carro_id', 'like', '%' . $request->estado_carro_id . '%');
         })
             ->when($request->filled('data_inicio'), function ($whenQuery) use ($request) {
                 $whenQuery->where('ano', '>=', \Carbon\Carbon::parse($request->data_inicio)->format('Y-m-d'));

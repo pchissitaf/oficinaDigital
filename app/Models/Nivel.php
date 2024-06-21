@@ -14,8 +14,13 @@ class Nivel extends Model
     // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['nome',];
 
+    // Criar Relacionamento
     public function user()
     {
         return $this->hasMany(User::class);
+    }
+    public function funcionario()
+    {
+        return $this->hasMany(Funcionario::class);
     }
 }

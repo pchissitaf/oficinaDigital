@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ServicoRequest;
 use App\Models\Servico;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Gate;
 
 class ServicoController extends Controller
 {
@@ -17,6 +18,7 @@ class ServicoController extends Controller
     {
 
         // Recuperar os registros do banco dados
+        $user = User::find(1);
         $servicos = Servico::when($request->has('nome'), function ($whenQuery) use ($request) {
             $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
         })
@@ -26,7 +28,7 @@ class ServicoController extends Controller
         // Carregar a VIEW
         return view('servicos.index', [
             'servicos' => $servicos,
-            'nome' => $request->nome,
+            'nome' => $request->nome,'user' =>$user
         ]);
     }
    // Detalhes do servico
@@ -40,6 +42,8 @@ class ServicoController extends Controller
    // Carregar o formulário cadastrar novo servico
    public function create()
    {
+    $user = User::find(1);    
+    Gate::authorize('alterar_servico', $user);
        // Carregar a VIEW
        return view('servicos.create');
    }
@@ -64,11 +68,15 @@ class ServicoController extends Controller
    // Carregar o formulário editar a servico
    public function edit(Servico $servico)
    {
-
+        $user = User::find(1);    
+        if(Gate::allows('alterar_produto', $user)){
        // Carregar a VIEW
        return view('servicos.edit', [
            'servico' => $servico,
-       ]);
+       ]);}
+       if(Gate::denies('alterar_produto', $user)){
+        return back()->with('success', 'Não Tem Autorização Para Esta Acção');
+       }
    }
 
    // Editar no banco de dados a servicos
@@ -92,11 +100,15 @@ class ServicoController extends Controller
    public function destroy(Servico $servico)
    {
 
-       // Excluir o registro do banco de dados
-       $servico->delete();
-
-       // Redirecionar o usuário, enviar a mensagem de sucesso
-       return redirect()->route('servicos.index')->with('success', 'Servico apagado com sucesso');
+         $user = User::find(1);    
+         if(Gate::allows('alterar_produto', $user)){
+        // Excluir o registro do banco de dados
+        $servico->delete();
+        // Redirecionar o usuário, enviar a mensagem de sucesso
+       return redirect()->route('servicos.index')->with('success', 'Servico apagado com sucesso');}
+        if(Gate::denies('alterar_produto', $user)){
+            return back()->with('success', 'Não Tem Autorização Para Esta Acção');
+        }  
    }
 
    // Gerar PDF

@@ -68,7 +68,7 @@
                                 
                                 <a href="{{ route('clientes.show', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
-
+                                @can('alterar_cliente', $user)
                                 <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
 
@@ -79,6 +79,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
                                         onclick="return confirm('Tem certesa de que deseja apagar o cliente {{ $cliente->nome }}')">Apagar</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @empty
