@@ -80,7 +80,7 @@
                     @forelse ($carros as $carro)
                         
                         <tr>
-                            @can('filtro_carro', $carro)
+                            @can('filtro_carro',$carro)
                             <td>{{ $carro->id }}</td>
                             <td>{{ $carro->modelo }}</td>
                             <td>{{ $carro->cor }}</td>
@@ -92,11 +92,8 @@
                                 </a>
                             </td>
                             <td>{{ $carro->avaria }}</td>
-                            <td>{{ $carro->user->name }}</td>
-                            @if ($carro->user->id =! $carro->funcionario_id)
-                                dd('diferente');
-                            @endif
-                            <td>{{ $carro->user->name }}</td>
+                            <td>{{ $carro->cliente->nome }}</td>
+                            <td>{{ $carro->funcionario->nome }}</td>
                             <td>{{ $carro->codigo_validacao }}</td>
                             <td>{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}
                             </td>
@@ -113,7 +110,7 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }} ?')">Apagar</button>
+                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }}  ?')">Apagar</button>
                                 </form>
                                 @endcan
                                 @endcan

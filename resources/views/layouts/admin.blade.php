@@ -25,18 +25,21 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white">Home</a></li>
+                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white" >Home</a></li>                                         
                     <li><a href="{{ route('carro.index') }}" class="nav-link px-2 text-white">Carros</a></li>
-                    <li><a href="{{ route('clientes.index') }}" class="nav-link px-2 text-white">Clientes</a></li>
-                    <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">Usuarios</a></li>
+                    @can('ver_cliente', $user)
+                    <li><a href="{{ route('clientes.index') }}" class="nav-link px-2 text-white">Clientes</a></li>@endcan
+                    @can('ver_funcionario', $user)
+                    <li><a href="{{ route('funcionarios.index') }}" class="nav-link px-2 text-white">Funcionarios</a></li>@endcan
                     <li><a href="{{ route('servicos.index') }}" class="nav-link px-2 text-white">Servicos</a></li>
-                    <li><a href="{{ route('funcionarios.index') }}" class="nav-link px-2 text-white">Funcionarios</a></li>                    
+                    @can('ver_user', $user)
+                    <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">Usuarios</a></li>@endcan                                        
                 </ul>
 
                 <div class="text-end">
                     @auth
                     <a href="{{ route('logout') }}" type="button" class="btn btn-warning">Terminar Sessao</a>
-                    <a href="{{ route('logout') }}" type="button" class="btn btn-warning">Logado</a>
+                    <a href="{{ auth()->user()->name }}" type="button" class="btn btn-warning">{{ auth()->user()->name }}</a>
                     @else
                     <a href="{{ route('login') }}" type="button" class="btn btn-warning">Iniciar Sessao</a>
                     @endauth

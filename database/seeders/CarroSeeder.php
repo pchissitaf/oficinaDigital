@@ -20,8 +20,9 @@ class CarroSeeder extends Seeder
                 'modelo' => 'Hilux',
                 'cor' => 'Amarelo',
                 'marca' => 'Toyota',
-                'tipo' => 'Ligeiro',
-                'avaria' => 'Motor',
+                'tipo' => 'Ligeiro',                
+                'cliente_id' => '1',                
+                'funcionario_id' => '4',                
                 'codigo_validacao' => Str::random(5),
                 'ano' => '2024-01-23',
             ]);
@@ -32,8 +33,8 @@ class CarroSeeder extends Seeder
                 'modelo' => 'Elantra',
                 'cor' => 'Cinza',
                 'marca' => 'Hiunday',
-                'tipo' => 'Ligeiro',
-                'avaria' => 'Chaparia',
+                'tipo' => 'Ligeiro',                                
+                'cliente_id' => '2',
                 'codigo_validacao' => Str::random(5),
                 'ano' => '2024-01-23',
             ]);
@@ -44,8 +45,9 @@ class CarroSeeder extends Seeder
                 'modelo' => 'Camaro',
                 'cor' => 'Vermelho',
                 'marca' => 'Cheverlet',
-                'tipo' => 'Ligeiro',
-                'avaria' => 'Motor',
+                'tipo' => 'Ligeiro',               
+                'cliente_id' => '2',                                
+                'funcionario_id' => '4',
                 'codigo_validacao' => Str::random(5),
                 'ano' => '2024-01-23',
             ]);
@@ -57,7 +59,6 @@ class CarroSeeder extends Seeder
                 'cor' => 'Azul',
                 'marca' => 'Toyota',
                 'tipo' => 'Ligeiro',
-                'avaria' => 'Motor',
                 'codigo_validacao' => Str::random(5),
                 'ano' => '2024-01-23',
             ]);
@@ -69,7 +70,6 @@ class CarroSeeder extends Seeder
                 'cor' => 'Preto',
                 'marca' => 'Ranger',
                 'tipo' => 'Ligeiro',
-                'avaria' => 'Motor',
                 'codigo_validacao' => Str::random(5),
                 'ano' => '2024-01-23',
             ]);

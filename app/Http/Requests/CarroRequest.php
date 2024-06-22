@@ -29,7 +29,8 @@ class CarroRequest extends FormRequest
             'estado_carro_id' => 'required',
             'marca' => 'required',
             'ano' => 'required',
-            'user_id' => 'required',
+            'avaria' => 'required',
+            'cliente_id' => 'required',
             'funcionario_id' => 'required',
             'estado_carro_id' => 'required',
         ];
@@ -38,13 +39,9 @@ class CarroRequest extends FormRequest
     public function messages(): array
     {
         return[
-            'modelo.required' => 'Campo modelo é obrigatório!',
-            'cor.required' => 'Campo cor é obrigatório!',
-            'marca.required' => 'Campo marca é obrigatório!',
-            'tipo.required' => 'Campo tipo é obrigatório!',
+            'cliente_id.required' => 'Campo Proprietario é obrigatório!',
+            'funcionario_id.required' => 'Campo Funcionario é obrigatório!',
             'estado_carro_id.required' => 'Campo estado do carro é obrigatório!',
-            'ano.required' => 'Campo ano é obrigatório!',
-            'estado_carro_id.required' => 'Campo situação da conta é obrigatório!',
         ];
     }
 }

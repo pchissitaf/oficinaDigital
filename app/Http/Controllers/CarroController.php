@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarroRequest;
 use App\Models\Carro;
+use App\Models\Cliente;
 use App\Models\EstadoCarro;
+use App\Models\Funcionario;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -21,8 +23,7 @@ class CarroController extends Controller
     {
 
         // Recuperar os registros do banco dados
-        $user = User::find(1);
-        $funcionario=$user->funcionario_id;
+        $user = User::find(auth()->user()->id);
         $carros = Carro::when($request->has('modelo'), function ($whenQuery) use ($request) {
             $whenQuery->where('modelo', 'like', '%' . $request->modelo . '%');
         })
@@ -35,7 +36,7 @@ class CarroController extends Controller
             ->when($request->filled('data_fim'), function ($whenQuery) use ($request) {
                 $whenQuery->where('ano', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
             })
-            ->with('estadoCarro','user')
+            ->with('estadoCarro')
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
@@ -47,7 +48,6 @@ class CarroController extends Controller
             'data_fim' => $request->data_fim,
             'user' => $user,
             'estado_carro_id' => $request->estado_carro_id,
-            'funcionario' => $funcionario,
         ]);
     }
     /**
@@ -56,9 +56,11 @@ class CarroController extends Controller
     // Detalhes do Carro
     public function show(Carro $carro)
     {
-
+        $funcionario = Funcionario::all();
+        $cliente = Cliente::all();
+        $user = User::find(auth()->user()->id);
         // Carregar a VIEW
-        return view('carros.show', ['carro' => $carro]);
+        return view('carros.show', ['carro' => $carro,'user' =>$user]);
     }
 
     // Carregar o formulário cadastrar novo carro
@@ -66,12 +68,14 @@ class CarroController extends Controller
     {
         // Recuperar do banco de dados os estados
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
-        $users = User::orderBy('name', 'asc')->get();
-        $user = User::find(1);    
+        $clientes = Cliente::orderBy('nome', 'asc')->get();
+        $funcionarios = Funcionario::orderBy('nome', 'asc')->get();
+        $user = User::find(auth()->user()->id);   
         Gate::authorize('alterar_servico', $user);
         // Carregar a VIEW
         return view('carros.create', [
-            'estadoCarros' => $estadoCarros, 'users' => $users,
+            'estadoCarros' => $estadoCarros, 'clientes' => $clientes,
+            'funcionarios' => $funcionarios,'user' => $user,
         ]);
     }
 
@@ -89,8 +93,7 @@ class CarroController extends Controller
                 'marca' => $request->marca, 
                 'tipo' => $request->tipo,
                 'estado_carro_id' => $request->estado_carro_id, 
-                'avaria' => $request->avaria,
-                'user_id' => $request->user_id,
+                'cliente_id' => $request->cliente_id,
                 'funcionario_id' => $request->funcionario_id,
                 'codigo_validacao' =>Str::random(5),
                 'ano' => $request->ano,
@@ -106,12 +109,14 @@ class CarroController extends Controller
         // Recuperar do banco de dados as situações
         $estadoCarros = EstadoCarro::orderBy('nome', 'asc')->get();
         $users = user::orderBy('name', 'asc')->get();
-        $user = User::find(1);    
+        $funcionarios = funcionario::orderBy('nome', 'asc')->get();
+        $clientes = cliente::orderBy('nome', 'asc')->get();
+        $user = User::find(auth()->user()->id);   
         if(Gate::allows('alterar_carro', $user)){
        // Carregar a VIEW
        return view('carros.edit', [
         'carro' => $carro,
-        'estadoCarros' => $estadoCarros, 'users' =>$users,
+        'estadoCarros' => $estadoCarros, 'users' =>$users,'user'=>$user,'clientes'=> $clientes,'funcionarios'=>$funcionarios,
         ]);}
        if(Gate::denies('alterar_carro', $user)){
         return back()->with('success', 'Não Tem Autorização Para Esta Acção');
@@ -144,7 +149,7 @@ class CarroController extends Controller
     // Excluir a carro do banco de dados
     public function destroy(Carro $carro)
     {
-        $user = User::find(1);    
+        $user = User::find(auth()->user()->id);    
         if(Gate::allows('alterar_carro', $user)){
        // Excluir o registro do banco de dados
        $carro->delete();

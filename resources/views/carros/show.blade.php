@@ -45,13 +45,12 @@
                     </a>
                 </dd>
                 <dt class="col-sm-3">tipo de avaria</dt>
-                <dd class="col-sm-9">{{ $carro->tipo_de_avaria }}</dd>
+                <dd class="col-sm-9">{{ $carro->avaria }}</dd>
 
                 <dt class="col-sm-3">Proprietario</dt>
-                <dd class="col-sm-9">{{ $carro->user->name }}</dd> 
-
+                <dd class="col-sm-9">{{ $carro->cliente->nome }}</dd> 
                 <dt class="col-sm-3">Funcionario</dt>    
-                <dd class="col-sm-9">{{ $carro->user->name }}</dd>
+                <dd class="col-sm-9">{{ $carro->funcionario->nome }}</dd>
 
                 <dt class="col-sm-3">ano</dt>
                 <dd class="col-sm-9">{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}</dd>

@@ -16,7 +16,7 @@ class ClienteController extends Controller
         
 
         // Recuperar os registros do banco dados
-        $user = User::find(1);
+        $user = User::find(auth()->user()->id); 
         $clientes = Cliente::when($request->has('nome'), function ($whenQuery) use ($request) {
             $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
         })
@@ -38,7 +38,7 @@ class ClienteController extends Controller
     {
         // Recuperar do banco de dados os usuarios
         $users = User::orderBy('email', 'asc')->get();
-        $user = User::find(1);    
+        $user = User::find(auth()->user()->id);    
         Gate::authorize('alterar_cliente', $user);
 
         // Carregar a VIEW
@@ -76,8 +76,9 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
+        $user = User::find(auth()->user()->id); 
         // Carregar a VIEW
-        return view('clientes.show', ['cliente' => $cliente]);
+        return view('clientes.show', ['cliente' => $cliente,'user'=>$user]);
     }
 
     /**
@@ -87,12 +88,12 @@ class ClienteController extends Controller
     {
         // Recuperar do banco de dados as situações
         $users = User::orderBy('email', 'asc')->get();
-        $user = User::find(1);    
+        $user = User::find(auth()->user()->id);    
         if(Gate::allows('alterar_cliente', $user)){
        // Carregar a VIEW
        return view('clientes.edit', [
         'cliente' => $cliente,
-        'users' => $users,
+        'users' => $users,'user'=>$user
             ]);}
        if(Gate::denies('alterar_cliente', $user)){
         return back()->with('success', 'Não Tem Autorização Para Esta Acção');

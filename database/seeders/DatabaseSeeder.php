@@ -21,11 +21,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             EstadoCarroSeeder::class,
             ClienteSeeder::class,
+            FuncionarioSeeder::class,
             CarroSeeder::class,
             ServicoSeeder::class,
             FuncionarioSeeder::class,
         ]);
-        \App\Models\User::factory(19)->create();
+        \App\Models\User::factory(18)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

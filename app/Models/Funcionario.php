@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Funcionario extends Model
 {
@@ -18,8 +19,12 @@ class Funcionario extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function nivels(): BelongsTo
+    public function nivel(): BelongsTo
     {
         return $this->belongsTo(Nivel::class);
+    }
+    public function carro(): HasMany
+    {
+        return $this->hasMany(Carro::class);
     }
 }

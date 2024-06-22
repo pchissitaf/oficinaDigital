@@ -28,7 +28,29 @@ class UserSeeder extends Seeder
         ]);
 
         $user = User::create([
-            'name'  => 'Steel Estranho',
+            'name'  => 'Ilidio Mateus',
+            'email' => 'ilidio@gmail.com',
+            'nivel_id' => '3',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
+        $user = User::create([
+            'name'  => 'Amelia',
+            'email' => 'amelia@gmail.com',
+            'nivel_id' => '2',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
+        $user = User::create([
+            'name'  => 'Steel O Estranho',
             'email' => 'steel@gmail.com',
             'nivel_id' => '4',
             'password' => bcrypt('12345678'),
@@ -39,9 +61,53 @@ class UserSeeder extends Seeder
         ]);
 
         $user = User::create([
-            'name'  => 'Steel Estranho',
-            'email' => 'steelf@gmail.com',
+            'name'  => 'Tomas Francisco',
+            'email' => 'tomas@gmail.com',
+            'nivel_id' => '4',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
+        $user = User::create([
+            'name'  => 'Luisa Francisco',
+            'email' => 'luisa@gmail.com',
+            'nivel_id' => '5',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
+        $user = User::create([
+            'name'  => 'Maria Pedro',
+            'email' => 'maria@gmail.com',
+            'nivel_id' => '5',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
+        $user = User::create([
+            'name'  => 'Antonio Mesquita',
+            'email' => 'antonio@gmail.com',
             'nivel_id' => '3',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+
+        ]);
+
+        $user = User::create([
+            'name'  => 'Usuario Indefinido',
+            'email' => 'user@gmail.com',
+            'nivel_id' => '6',
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
             'created_at' => date('Y-m-d H:i:s'),

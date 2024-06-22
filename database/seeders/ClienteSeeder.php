@@ -14,19 +14,21 @@ class ClienteSeeder extends Seeder
     public function run(): void
     {
         //
-        if(!Cliente::where('nome', 'Pedro')->first()){
+        if(!Cliente::where('nome', 'Steel O Estranho')->first()){
             Cliente::create([
-                'nome' => 'Pedro',
-                'endereco' => 'Lubango',
-                'telefone' => '932471147',
+                'nome' => 'Steel O Estranho',
+                'endereco' => 'Lubango/Mictha',
+                'telefone' => '922821244',
+                'user_id' => 4,
             ]);
         }
 
-        if(!Cliente::where('nome', 'Francisco')->first()){
+        if(!Cliente::where('nome', 'Tomas Francisco')->first()){
             Cliente::create([
-                'nome' => 'Francisco',
-                'endereco' => 'Lubango',
-                'telefone' => '922821244',
+                'nome' => 'Tomas Francisco',
+                'endereco' => 'Lubango/Mitcha',
+                'telefone' => '924630329',                
+                'user_id' => 5,
             ]);
         }
 

@@ -69,7 +69,7 @@
                             <td>{{ \Carbon\Carbon::parse($user->updated_at)->format('d/m/Y') }}</td>
                                                         
                             <td class="d-md-flex justify-content-center">
-                                <a href="{{ route('users.show', ['user' => $user->id]) }}"
+                                <a href="{{ route('users.show', ['user' =>$user->id]) }}"
                                     class="btn btn-primary btn-sm me-1">Visualizar</a>
                                 @can('alterar_user', $user)
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}"

@@ -37,8 +37,8 @@
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->tipo }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->estadoCarro->nome }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->avaria }}</td>
-                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->user->name }}</td>
-                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->user->name }}</td>
+                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->cliente->nome }}</td>
+                    <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->funcionario->nome }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ $carro->codigo_validacao }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ \Carbon\Carbon::parse($carro->ano)->format('d/m/Y') }}</td>
                     <td style="border: 1px solid #ccc; border-top: none;">{{ 'Akz ' . number_format($carro->valor, 2, ',', '.') }}</td>
@@ -51,7 +51,7 @@
 
             <tr>
                 <td colspan="9" style="border: 1px solid #cccccc; border-top: none;">Total</td>
-                <td style="border: 1px solid #ccc; border-top: none;">{{ 'Akz ' . number_format($totalValor, 2, ',', '.') }}</td>
+                {{--<td style="border: 1px solid #ccc; border-top: none;">{{ 'Akz ' . number_format($totalValor, 2, ',', '.') }}</td>--}}
             </tr>
         </tbody>
 

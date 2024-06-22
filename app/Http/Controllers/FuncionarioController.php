@@ -18,7 +18,7 @@ class FuncionarioController extends Controller
     public function index(Request $request)
     {
         // Recuperar os registros do banco dados
-        $user = User::find(1);
+        $user = User::find(auth()->user()->id); 
         $nivels = Nivel::find(1);
         $funcionarios = Funcionario::when($request->has('nome'), function ($whenQuery) use ($request) {
             $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
@@ -39,7 +39,7 @@ class FuncionarioController extends Controller
     {
         // Recuperar do banco de dados os usuarios
         $users = User::orderBy('email', 'asc')->get();
-        $user = User::find(1);
+        $user = User::find(auth()->user()->id); 
         $nivels = Nivel::orderBy('nome', 'asc')->get();    
         Gate::authorize('alterar_funcionario', $user);
 
@@ -80,7 +80,7 @@ class FuncionarioController extends Controller
     public function show(Funcionario $funcionario)
     {
         $nivels = Nivel::find(1);
-        $user = User::find(1);
+        $user = User::find(auth()->user()->id); 
         // Carregar a VIEW
         return view('funcionarios.show', ['funcionario' => $funcionario, 'nivels'=> $nivels, 'user' =>$user]);
     }
@@ -93,7 +93,7 @@ class FuncionarioController extends Controller
         // Recuperar do banco de dados as situações
         $users = User::orderBy('email', 'asc')->get();
         $nivels = Nivel::orderBy('nome', 'asc')->get();
-        $user = User::find(1);    
+        $user = User::find(auth()->user()->id);     
         if(Gate::allows('alterar_funcionario', $user)){
        // Carregar a VIEW
        return view('funcionarios.edit', [

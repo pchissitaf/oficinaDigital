@@ -25,10 +25,16 @@
 							<ul>
                                 @auth
 								<li><a href="{{ route('carro.index') }}">Carros</a></li>
-								<li><a href="{{ route('users.index') }}">Usuarios</a></li>
+								@can('ver_cliente', $user)
 								<li><a href="{{ route('clientes.index') }}">Clientes</a></li>
-								<li><a href="{{ route('servicos.index') }}">Servicos</a></li>
+								@endcan
+								@can('ver_funcionario', $user)
 								<li><a href="{{ route('funcionarios.index') }}">Funcionarios</a></li>
+								@endcan
+								<li><a href="{{ route('servicos.index') }}">Servicos</a></li>
+								@can('ver_user', $user)
+								<li><a href="{{ route('users.index') }}">Usuarios</a></li>
+								@endcan
                                 @else
                                 <li><a href="{{ route('dashboard') }}">Home</a></li>
                                 <li><a href="{{ route('servicos.index') }}">Servicos</a></li>
@@ -72,16 +78,23 @@
 								<ul class="links">
                                 <li><a href="{{ route('dashboard') }}">Home</a></li>
                                 <li><a href="{{ route('carro.index') }}">Carros</a></li>
-								<li><a href="{{ route('users.index') }}">Usuarios</a></li>
+								@can('ver_cliente', $user)
 								<li><a href="{{ route('clientes.index') }}">Clientes</a></li>
-								<li><a href="{{ route('servicos.index') }}">Servicos</a></li>
+								@endcan
+								@can('ver_funcionario', $user)
 								<li><a href="{{ route('funcionarios.index') }}">Funcionarios</a></li>
+								@endcan
+								<li><a href="{{ route('servicos.index') }}">Servicos</a></li>
+								@can('ver_user', $user)
+								<li><a href="{{ route('users.index') }}">Usuarios</a></li>
+								@endcan
 								</ul>
 							</section>
 
 						<!-- Actions -->
 							<section>
-								<ul class="actions stacked">
+								<ul class="actions stacked">									
+									<li><a href="{{ route('users.show', ['user' => auth()->user()->id]) }}" class="button large fit">{{auth()->user()->name}}</a></li>
 									<li><a href="{{ route('logout') }}" class="button large fit">Terminar Sessão</a></li>
 								</ul>
 							</section>

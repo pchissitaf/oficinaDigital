@@ -15,8 +15,8 @@ return new class extends Migration
        
         Schema::table('carros', function (Blueprint $table) {
             $table->foreignId('estado_carro_id')->default(2)->after('tipo')->constrained('estado_carros');
-            $table->foreignId('user_id')->default(2)->after('codigo_validacao')->constrained('users');
-            $table->foreignId('funcionario_id')->default(3)->after('codigo_validacao')->constrained('users');
+            $table->foreignId('cliente_id')->default(2)->after('codigo_validacao')->constrained('users');
+            $table->foreignId('funcionario_id')->default(3)->after('codigo_validacao')->constrained('funcionarios');
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
         //
         Schema::create('carros', function (Blueprint $table) {
             $table->dropColumn('estado_carro_id');
-            $table->dropColumn('user_id');
+            $table->dropColumn('cliente_id');
             $table->dropColumn('funcionario_id');
         });
     }

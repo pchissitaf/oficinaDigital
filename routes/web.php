@@ -21,16 +21,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/dashboard', function () {
+/*Route::get('/', function () {
     return view('index');
-})->name('dashboard');
+});*/
+
+Route::get('/dashboard', [ProfileController::class,'index'])->name('dashboard');
 Route::resource('servicos', ServicoController::class);
 Route::get('/logout', [ProfileController::class,'logout'])
                 ->name('logout');
+Route::get('/', [ProfileController::class,'index'])
+                ->name('/');
 
 Route::middleware(['auth','accessUser'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

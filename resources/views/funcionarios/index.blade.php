@@ -66,7 +66,7 @@
                             <td>{{ $funcionario->telefone }}</td>
                             <td>{{ $funcionario->bilhete }}</td>
                             <td>{{ $funcionario->doc_file }}</td>
-                            <td>{{ $funcionario->nivel_id }}</td>
+                            <td>{{ $funcionario->nivel->nome }}</td>
                             <td>{{ 'Akz ' . number_format($funcionario->salario, 2, ',', '.') }}</td>
                             <td>{{ $funcionario->user->email }}</td>
                                                         

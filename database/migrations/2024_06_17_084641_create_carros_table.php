@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('cor');
             $table->string('marca');
             $table->string('tipo');
-            $table->string('avaria');
+            $table->string('avaria')->default('Não Diagnosticado');
             $table->string('codigo_validacao');
             $table->date('ano');
             $table->timestamps();

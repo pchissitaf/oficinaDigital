@@ -62,20 +62,14 @@
                     </select>
                 </div>
 
-                <div class="col-md-12 col-sm-12">
-                    <label for="avaria" class="form-label">Tipo de Avaria</label>
-                    <input type="text" name="avaria" class="form-control" id="avaria" placeholder="tipo de avaria do carro"
-                        value="{{ old('avaria') }}">
-                </div>
-
                 <div class="col-md-4 col-sm-12">
-                    <label for="user_id" class="form-label">Proprietario</label>
-                    <select name="user_id" id="user_id" class="form-select">
+                    <label for="cliente_id" class="form-label">Proprietario</label>
+                    <select name="cliente_id" id="cliente_id" class="form-select">
                         <option value="">Selecione</option>
-                        @forelse ($users as $user)
-                            <option value="{{ $user->id }}"
-                                {{ old('user_id' ) == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }}</option>
+                        @forelse ($clientes as $cliente)
+                            <option value="{{ $cliente->id }}"
+                                {{ old('cliente_id' ) == $cliente->id ? 'selected' : '' }}>
+                                {{ $cliente->nome }}</option>
                         @empty
                             <option value="">Nenhum Proprietario</option>
                         @endforelse
@@ -86,10 +80,10 @@
                     <label for="funcionario_id" class="form-label">Funcionario</label>
                     <select name="funcionario_id" id="funcionario_id" class="form-select">
                         <option value="">Selecione</option>
-                        @forelse ($users as $user)
-                            <option value="{{ $user->id }}"
-                                {{ old('user_id' ) == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }}</option>
+                        @forelse ($funcionarios as $funcionario)
+                            <option value="{{ $funcionario->id }}"
+                                {{ old('funcionario_id' ) == $funcionario->id ? 'selected' : '' }}>
+                                {{ $funcionario->nome }}</option>
                         @empty
                             <option value="">Nenhum Funcionario Encontrado</option>
                         @endforelse

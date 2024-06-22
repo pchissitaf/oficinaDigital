@@ -37,6 +37,7 @@
 
                 <a href="{{ url('gerar-pdf-servico?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
                     PDF</a>
+                
 
             </span>
         </div>
@@ -62,7 +63,7 @@
                         <tr>
                             <td>{{ $servico->id }}</td>
                             <td>{{ $servico->nome }}</td>
-                            <td>{{ 'Akz ' . number_format($servico->valor, 2, ',', '.') }}</td>
+                            <td>{{ 'Akz ' . number_format($servico->valor, 2, ',', '.')  }}</td>
                             <td>{{ \Carbon\Carbon::parse($servico->created_at)->format('d/m/Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($servico->updated_at)->format('d/m/Y') }}</td>
                                                         
@@ -81,9 +82,11 @@
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
                                         onclick="return confirm('Tem certesa de que deseja apagar o servico {{ $servico->nome }}')">Apagar</button>
                                 </form>
+                                
                                 @endcan
                             </td>
                         </tr>
+
                     @empty
                         <span style="color: #f00;">Nenhum servico encontrado!</span>
                     @endforelse
