@@ -45,6 +45,12 @@ class AuthServiceProvider extends ServiceProvider
           Gate::define('alterar_funcionario', function(User $user){
             return ($user->nivel_id == 1 || $user->nivel_id == 2);
           });
+          Gate::define('alterar_orcamento', function(User $user){
+            return ($user->nivel_id == 1 || $user->nivel_id == 2);
+          });
+          Gate::define('alterar_ordenServico', function(User $user){
+            return ($user->nivel_id == 1 || $user->nivel_id == 2);
+          });
 
       //Gates para Visualizar
         Gate::define('ver_cliente', function(User $user){

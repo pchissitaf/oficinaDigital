@@ -134,19 +134,47 @@
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="single.html">Magna sed adipiscing</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
+										<h2><a href="single.html">Principais Serviços </a></h2>
+										<p>COnheça Nossa Variedade de Serviços</p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
+										<time class="published" datetime="2024-05-25">Maio 25, 2024</time>
+										<a href="#" class="author"><span class="name">Steel O Estranho</span><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
 									</div>
 								</header>
-								<a href="single.html" class="image featured"><img src="{{asset('images/pic01.jpg')}}" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+								<div class="mini-posts">
+									<div class="card-body">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">ID</th>
+													<th scope="col">Nome</th>
+													<th scope="col">valor</th>
+													<th scope="col">Criado</th>
+												</tr>
+											</thead>
+											<tbody>
+												@forelse ($servicos as $servico)
+													<tr>
+														<td>{{ $servico->id }}</td>
+														<td>{{ $servico->nome }}</td>
+														<td>{{ 'Akz ' . number_format($servico->valor, 2, ',', '.')  }}</td>
+														<td>{{ \Carbon\Carbon::parse($servico->created_at)->format('d/m/Y') }}</td>
+														</td>
+													</tr>
+							
+												@empty
+													<span style="color: #f00;">Nenhum servico encontrado!</span>
+												@endforelse
+											</tbody>
+										</table>
+							
+										{{-- $servicos->onEachSide(0)->links() --}}
+									</div>
+								</div>
 								<footer>
 									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
+										<li><a href="single.html" class="button large">Agendar Serviços</a></li>
 									</ul>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
@@ -157,33 +185,58 @@
 							</article>
 
 						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html">Ultricies sed magna euismod enim vitae gravida</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-25">October 25, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
-									</div>
-								</header>
-								<a href="single.html" class="image featured"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
+						<article class="post">
+							<header>
+								<div class="title">
+									<h2><a href="single.html">Conheça os Nossos Funcionarios </a></h2>
+									<p>~Uma equipe capaz de solucionar a tempo e hora!!</p>
+								</div>
+								<div class="meta">
+									<time class="published" datetime="2024-05-25">Maio 25, 2024</time>
+									<a href="#" class="author"><span class="name">Steel O Estranho</span><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
+								</div>
+							</header>
+							<div class="card-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Nome</th>
+											<th scope="col">Telefone</th>
+											<th scope="col">Cargo</th>
+											<th scope="col">Email</th>
+										</tr>
+									</thead>
+									<tbody>
+										@forelse ($funcionarios as $funcionario)
+											<tr>
+												<td>{{ $funcionario->nome }}</td>
+												<td>{{ $funcionario->telefone }}</td>
+												<td>{{ $funcionario->nivel->nome }}</td>
+												<td>{{ $funcionario->user->email }}</td>												
+											</tr>
+										@empty
+											<span style="color: #f00;">Nenhum funcionario encontrado!</span>
+										@endforelse
+									</tbody>
+								</table>
+					
+								{{-- $funcionarios->onEachSide(0)->links() --}}
+							</div>
+							<footer>
+								<ul class="actions">
+									<li><a href="single.html" class="button large">Agendar Serviços</a></li>
+								</ul>
+								<ul class="stats">
+									<li><a href="#">General</a></li>
+									<li><a href="#" class="icon solid fa-heart">28</a></li>
+									<li><a href="#" class="icon solid fa-comment">128</a></li>
+								</ul>
+							</footer>
+						</article>
 
-						<!-- Post -->
-							<article class="post">
+					
+							<!-- Post -->
+							{{--<article class="post">
 								<header>
 									<div class="title">
 										<h2><a href="single.html">Euismod et accumsan</a></h2>
@@ -240,7 +293,7 @@
 											</ul>
 										</div>
 									</div>
-					</div>
+					--}}</div>
 
 				<!-- Sidebar -->
 					<section id="sidebar">
@@ -250,28 +303,70 @@
 								<a href="#" class="logo"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
 								<header>
 									<h2>Oficina Digital</h2>
-									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+									<p>A melhor soulução e ao melhor preço <strong><a href="#">Agende Agora</a></strong></p>
 								</header>
 							</section>
 
 						<!-- Mini Posts -->
 							<section>
-								<div class="mini-posts">
+								<div {{--class="mini-posts"--}}>
 
 									<!-- Mini Post -->
 										<article class="mini-post">
 											<header>
-												<h3><a href="single.html">Rutrum neque accumsan</a></h3>
+												<h3><a href="single.html">Melhore seu motor e exploda</a></h3>
 												<time class="published" datetime="2015-10-19">October 19, 2015</time>
 												<a href="#" class="author"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
 											</header>
-											<a href="single.html" class="image"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
+											<a href="single.html" class="image"><img src="{{asset('images/carro1.jpg')}}" alt="" /></a>
 										</article>
+								</div>
+								<div class="">
 
-
+									<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="single.html">Coloque suspensão capaz</a></h3>
+												<time class="published" datetime="2015-10-19">October 19, 2015</time>
+												<a href="#" class="author"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
+											</header>
+											<a href="single.html" class="image"><img src="{{asset('images/carro2.jpg')}}" alt="" /></a>
+										</article>
 								</div>
 							</section>
 
+							<section>
+								<div class="mini-posts">
+									<div class="card-body">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col">ID</th>
+													<th scope="col">Nome</th>
+													<th scope="col">valor</th>
+													<th scope="col">Criado</th>
+												</tr>
+											</thead>
+											<tbody>
+												@forelse ($servicos as $servico)
+													<tr>
+														<td>{{ $servico->id }}</td>
+														<td>{{ $servico->nome }}</td>
+														<td>{{ 'Akz ' . number_format($servico->valor, 2, ',', '.')  }}</td>
+														<td>{{ \Carbon\Carbon::parse($servico->created_at)->format('d/m/Y') }}</td>
+														</td>
+													</tr>
+							
+												@empty
+													<span style="color: #f00;">Nenhum servico encontrado!</span>
+												@endforelse
+											</tbody>
+										</table>
+							
+										{{-- $servicos->onEachSide(0)->links() --}}
+									</div>
+								</div>
+							</section>
 						<!-- Posts List -->
 							<section>
 								<ul class="posts">

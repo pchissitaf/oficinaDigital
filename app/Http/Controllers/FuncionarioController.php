@@ -56,6 +56,9 @@ class FuncionarioController extends Controller
     public function store(FuncionarioRequest $request)
     {
 
+       $file_name = rand(0,99).'-'. $request->file('doc_file')->getClientOriginalName();
+       $path = $request->file('doc_file')->storeAs('uploades',$file_name);
+
         // Validar o formulário
         $request->validated();
             // Cadastrar no banco de dados na tabela funcionarios os valores de todos os campos
@@ -64,7 +67,7 @@ class FuncionarioController extends Controller
                 'endereco' => $request->endereco, 
                 'telefone' => $request->telefone,
                 'bilhete' => $request->bilhete,
-                'doc_file' => $request->endereco,
+                'doc_file' => $path,
                 'nivel_id' => $request->nivel_id,
                 'salario' => str_replace(',', '.', str_replace('.', '', $request->salario)), 
                 'user_id' => $request->user_id,

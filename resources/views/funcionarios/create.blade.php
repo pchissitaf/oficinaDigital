@@ -21,7 +21,7 @@
        
         <div class="card-body">
 
-            <form action="{{ route('funcionarios.store') }}" method="POST" class="row g-3">
+            <form action="{{ route('funcionarios.store') }}" enctype="multipart/form-data" method="POST" class="row g-3">
                 @csrf
 
                 <div class="col-md-12 col-sm-12">
@@ -50,7 +50,7 @@
 
                 <div class="col-md-12 col-sm-12">
                     <label for="doc_file" class="form-label">doc_file</label>
-                    <input type="text" name="doc_file" class="form-control" id="doc_file" placeholder="doc_file do funcionario"
+                    <input type="file" name="doc_file" class="form-control" id="doc_file" placeholder="doc_file do funcionario"
                         value="{{ old('doc_file') }}">
                 </div>
 

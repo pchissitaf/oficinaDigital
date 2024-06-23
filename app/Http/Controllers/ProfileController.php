@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Funcionario;
+use App\Models\Servico;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,8 +17,10 @@ class ProfileController extends Controller
     public function index()
     {
         $user = User::all();
+        $servicos = Servico::all();
+        $funcionarios = Funcionario::all();
         return view('index',[
-            'user' => $user,
+            'user' => $user,'servicos'=>$servicos,'funcionarios'=>$funcionarios,
         ]);
     }
     /**

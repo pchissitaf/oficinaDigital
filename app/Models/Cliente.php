@@ -25,4 +25,9 @@ class Cliente extends Model
     {
         return $this->hasMany(Carro::class);
     }
+
+    public function orcamento():HasMany
+    {
+        return $this->hasMany(Orcamento::class);
+    }
 }

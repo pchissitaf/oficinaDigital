@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CarroController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\OrcamentoController;
+use App\Http\Controllers\OrdenServicoController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -40,7 +42,8 @@ Route::middleware(['auth','accessUser'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('clientes', ClienteController::class);
     Route::resource('funcionarios', FuncionarioController::class);
-    Route::resource('funcionarios', FuncionarioController::class);
+    Route::resource('orcamentos', OrcamentoController::class);
+    Route::resource('ordenServicos', OrdenServicoController::class);
     Route::get('gerar-pdf-funcionario', [FuncionarioController::class,'gerarPdf']);
     
     

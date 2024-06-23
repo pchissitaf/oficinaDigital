@@ -27,4 +27,9 @@ class Funcionario extends Model
     {
         return $this->hasMany(Carro::class);
     }
+
+    public function ordenServico(): HasMany
+    {
+        return $this->hasMany(OrdenServico::class);
+    }
 }

@@ -32,6 +32,8 @@
                     @can('ver_funcionario', $user)
                     <li><a href="{{ route('funcionarios.index') }}" class="nav-link px-2 text-white">Funcionarios</a></li>@endcan
                     <li><a href="{{ route('servicos.index') }}" class="nav-link px-2 text-white">Servicos</a></li>
+                    <li><a href="{{ route('orcamentos.index') }}" class="nav-link px-2 text-white">orcamentos</a></li>
+                    <li><a href="{{ route('ordenServicos.index') }}" class="nav-link px-2 text-white">ordenServicos</a></li>
                     @can('ver_user', $user)
                     <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">Usuarios</a></li>@endcan                                        
                 </ul>

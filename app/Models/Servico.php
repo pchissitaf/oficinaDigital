@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Servico extends Model
 {
@@ -13,4 +14,9 @@ class Servico extends Model
 
     // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['nome', 'valor'];
+
+    public function orcamento(): HasMany
+    {
+        return $this->hasMany(Orcamento::class);
+    }
 }

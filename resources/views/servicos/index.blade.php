@@ -80,7 +80,7 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="return confirm('Tem certesa de que deseja apagar o servico {{ $servico->nome }}')">Apagar</button>
+                                        onclick="return confirm('Tem certesa de que deseja apagar o servico {{ $servico->nome }} ')">Apagar</button>
                                 </form>
                                 
                                 @endcan
