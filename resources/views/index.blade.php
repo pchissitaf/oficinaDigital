@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{{asset('assets/css/main.css')}}" />
+		<link rel="icon" href="{{ asset('images/favicon.ico')}} " type="image/x-icon">
 
 	</head>
 	<body class="is-preload">
@@ -300,7 +301,7 @@
 
 						<!-- Intro -->
 							<section id="intro">
-								<a href="#" class="logo"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
+								<a href="#" class="logo"><img src="{{asset('images/logo.jpg')}}" alt="" /></a>
 								<header>
 									<h2>Oficina Digital</h2>
 									<p>A melhor soulução e ao melhor preço <strong><a href="#">Agende Agora</a></strong></p>
@@ -316,7 +317,7 @@
 											<header>
 												<h3><a href="single.html">Melhore seu motor e exploda</a></h3>
 												<time class="published" datetime="2015-10-19">October 19, 2015</time>
-												<a href="#" class="author"><img src="{{asset('images/avatar.jpg')}}" alt="" /></a>
+												<a href="#" class="author"><img src="{{asset('images/logo.jpg')}}" alt="" /></a>
 											</header>
 											<a href="single.html" class="image"><img src="{{asset('images/carro1.jpg')}}" alt="" /></a>
 										</article>

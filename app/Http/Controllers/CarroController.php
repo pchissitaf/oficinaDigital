@@ -56,8 +56,6 @@ class CarroController extends Controller
     // Detalhes do Carro
     public function show(Carro $carro)
     {
-        $funcionario = Funcionario::all();
-        $cliente = Cliente::all();
         $user = User::find(auth()->user()->id);
         // Carregar a VIEW
         return view('carros.show', ['carro' => $carro,'user' =>$user]);

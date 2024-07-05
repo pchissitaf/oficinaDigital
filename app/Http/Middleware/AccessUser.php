@@ -16,9 +16,10 @@ class AccessUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = User::find(1);
+        $user = User::find(auth()->user()->id);;
         if($user->nivel_id == 6){
-            return back();
+            return back()->with('success', 'Não Tem Autorização Para Esta Acção');
+                        //return back();
         }
         return $next($request);
     }

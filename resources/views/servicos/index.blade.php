@@ -33,12 +33,9 @@
             <span>
                 <a href="{{ route('servicos.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
                 {{-- <a href="{{ route('servico.gerar-pdf') }}" class="btn btn-warning btn-sm">Gerar PDF</a> --}}
-                {{-- {{ dd(request()->getQueryString()) }} --}}
 
                 <a href="{{ url('gerar-pdf-servico?' . request()->getQueryString()) }}" class="btn btn-warning btn-sm">Gerar
                     PDF</a>
-                
-
             </span>
         </div>
 

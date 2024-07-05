@@ -23,8 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'nivel_id',
-        'password',
-        
+        'password',   
     ];
 
     /**

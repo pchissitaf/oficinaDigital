@@ -57,6 +57,7 @@ class AuthServiceProvider extends ServiceProvider
           return ($user->nivel_id == 1 || $user->nivel_id == 2 
           || $user->nivel_id == 4 || $user->nivel_id == 5);
         });
+        
         Gate::define('ver_user', function(User $user){
           return ($user->nivel_id == 1 || $user->nivel_id == 2);
         });

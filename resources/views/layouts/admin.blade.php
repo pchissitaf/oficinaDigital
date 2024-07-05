@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{--<link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">--}}
+    <link rel="icon" href="{{ asset('images/favicon.ico')}} " type="image/x-icon">
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
+    
 
     <title>OficinaDigital</title>
 </head>
@@ -25,7 +26,14 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white" >Home</a></li>                                         
+                    <li> <img width="10%" src="{{asset('images/carro1.jpg')}}" alt="" /> </li>
+                    <li><a href="{{ route('dashboard') }}" class="nav-link px-2 text-white" >Home</a></li>
+                    <li>
+                        <select name="" class="form-select" id="">
+                            <option value="">A</option>
+                            <option class="btn btn-secundary" value="">B</option>
+                        </select>
+                    </li>                                         
                     <li><a href="{{ route('carro.index') }}" class="nav-link px-2 text-white">Carros</a></li>
                     @can('ver_cliente', $user)
                     <li><a href="{{ route('clientes.index') }}" class="nav-link px-2 text-white">Clientes</a></li>@endcan

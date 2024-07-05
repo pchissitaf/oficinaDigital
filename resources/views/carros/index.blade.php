@@ -105,13 +105,19 @@
                                 <a href="{{ route('carro.edit', ['carro' => $carro->id]) }}"
                                     class="btn btn-warning btn-sm me-1">Editar</a>
 
-                                <form id="formExcluir{{ $carro->id }}"
+                                    <form id="formExcluir{{ $carro->id }}" action="{{ route('carro.destroy', ['carro' => $carro->id]) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm me-1"
+                                            onclick="confirmarExclusao(event, {{ $carro->id }})">Apagar</button>
+                                    </form>
+                                    {{--<form id="formExcluir{{ $carro->id }}"
                                     action="{{ route('carro.destroy', ['carro' => $carro->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm me-1"
-                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }}  ?')">Apagar</button>
-                                </form>
+                                        onclick="return confirm('Tem certesa de que deseja apagar o carro {{ $carro->modelo }} ?')">Apagar</button>
+                                </form>--}}
                                 @endcan
                                 @endcan
                             </td>
